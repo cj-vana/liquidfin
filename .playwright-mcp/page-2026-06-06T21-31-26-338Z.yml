@@ -1,0 +1,553 @@
+- generic [ref=e1]:
+  - generic:
+    - generic:
+      - generic [ref=e6]:
+        - link "Home" [ref=e8] [cursor=pointer]:
+          - /url: "#/home"
+          - generic [ref=e9]: 
+          - generic [ref=e10]: Home
+        - generic [ref=e11]:
+          - heading "Media" [level=3] [ref=e12]
+          - link "Movies" [ref=e13] [cursor=pointer]:
+            - /url: "#/movies?topParentId=f137a2dd21bbc1b99aa5c0f6bf02a805&collectionType=movies"
+            - generic [ref=e14]: 
+            - generic [ref=e15]: Movies
+          - link "Music" [ref=e16] [cursor=pointer]:
+            - /url: "#/music?topParentId=7e64e319657a9516ec78490da03edccb&collectionType=music"
+            - generic [ref=e17]: 
+            - generic [ref=e18]: Music
+          - link "Playlists" [ref=e19] [cursor=pointer]:
+            - /url: "#/list?parentId=accbf8ec18a80e054486551fbf1306b9&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+            - generic [ref=e20]: 
+            - generic [ref=e21]: Playlists
+          - link "Shows" [ref=e22] [cursor=pointer]:
+            - /url: "#/tv?topParentId=a656b907eb3a73532e40e44b968d0225&collectionType=tvshows"
+            - generic [ref=e23]: 
+            - generic [ref=e24]: Shows
+        - generic [ref=e25]:
+          - heading "User" [level=3] [ref=e26]
+          - link "Settings" [ref=e27] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e28]: 
+            - generic [ref=e29]: Settings
+          - link "Sign Out" [ref=e30] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e31]: 
+            - generic [ref=e32]: Sign Out
+      - generic [ref=e33]:
+        - generic [ref=e34]:
+          - generic [ref=e35]:
+            - text:  
+            - button "Menu" [active] [ref=e36] [cursor=pointer]:
+              - generic [ref=e37]: 
+            - heading [level=3] [ref=e38]
+          - generic [ref=e39]:
+            - button "SyncPlay" [ref=e40] [cursor=pointer]:
+              - generic [ref=e41]: 
+            - text: 
+            - button "Cast to Device" [ref=e42] [cursor=pointer]:
+              - generic [ref=e43]: 
+            - button "Search" [ref=e44] [cursor=pointer]:
+              - generic [ref=e45]: 
+            - button "demo" [ref=e46] [cursor=pointer]
+        - generic [ref=e50]:
+          - button "Home" [ref=e51] [cursor=pointer]:
+            - generic [ref=e52]: Home
+          - button "Favorites" [ref=e53] [cursor=pointer]:
+            - generic [ref=e54]: Favorites
+    - generic [ref=e58]:
+      - generic [ref=e59]:
+        - heading "My Media" [level=2] [ref=e60]
+        - generic [ref=e61]:  
+        - generic [ref=e63]:
+          - generic [ref=e65] [cursor=pointer]:
+            - generic [ref=e66]:
+              - generic [ref=e68]: 
+              - img "Movies" [ref=e69]
+              - button "More" [ref=e71]:
+                - generic [ref=e72]: 
+            - link "Movies" [ref=e75]:
+              - /url: "#/movies?topParentId=f137a2dd21bbc1b99aa5c0f6bf02a805&collectionType=movies"
+          - generic [ref=e77] [cursor=pointer]:
+            - generic [ref=e78]:
+              - generic [ref=e80]: 
+              - img "Music" [ref=e81]
+              - button "More" [ref=e83]:
+                - generic [ref=e84]: 
+            - link "Music" [ref=e87]:
+              - /url: "#/music?topParentId=7e64e319657a9516ec78490da03edccb&collectionType=music"
+          - generic [ref=e89] [cursor=pointer]:
+            - generic [ref=e90]:
+              - generic [ref=e92]: 
+              - img "Playlists" [ref=e93]
+              - button "More" [ref=e95]:
+                - generic [ref=e96]: 
+            - link "Playlists" [ref=e99]:
+              - /url: "#/list?parentId=accbf8ec18a80e054486551fbf1306b9&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+          - generic [ref=e101] [cursor=pointer]:
+            - generic [ref=e102]:
+              - generic [ref=e104]: 
+              - img "Shows" [ref=e105]
+              - button "More" [ref=e107]:
+                - generic [ref=e108]: 
+            - link "Shows" [ref=e111]:
+              - /url: "#/tv?topParentId=a656b907eb3a73532e40e44b968d0225&collectionType=tvshows"
+      - generic [ref=e112]:
+        - heading "Continue Watching" [level=2] [ref=e113]
+        - generic [ref=e114]:
+          - button "Previous" [disabled] [ref=e115]:
+            - generic [ref=e116]: 
+          - button "Next" [ref=e117] [cursor=pointer]:
+            - generic [ref=e118]: 
+        - generic [ref=e120]:
+          - generic [ref=e1123] [cursor=pointer]:
+            - generic [ref=e1124]:
+              - generic [ref=e1126]: 
+              - img "Night of the Living Dead" [ref=e1127]
+              - generic:
+                - button "Play" [ref=e1131]:
+                  - generic [ref=e1132]: 
+                - generic [ref=e1133]:
+                  - button "Mark played" [ref=e1134]:
+                    - generic [ref=e1135]: 
+                  - button "Add to favorites" [ref=e1136]:
+                    - generic [ref=e1137]: 
+                  - button "More" [ref=e1138]:
+                    - generic [ref=e1139]: 
+            - link "Night of the Living Dead" [ref=e1142]:
+              - /url: "#/details?id=5e6e8380563c5211106652362c5c6843&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+            - generic [ref=e1143]: "1968"
+          - generic [ref=e1145] [cursor=pointer]:
+            - generic [ref=e1146]:
+              - generic [ref=e1148]: 
+              - img "King Lear" [ref=e1149]
+              - generic:
+                - button "Play" [ref=e1153]:
+                  - generic [ref=e1154]: 
+                - generic [ref=e1155]:
+                  - button "Mark played" [ref=e1156]:
+                    - generic [ref=e1157]: 
+                  - button "Favorite" [ref=e1158]:
+                    - generic [ref=e1159]: 
+                  - button "More" [ref=e1160]:
+                    - generic [ref=e1161]: 
+            - link "King Lear" [ref=e1164]:
+              - /url: "#/details?id=b07f6514a3e3aa7d8c273458c9cd4c82&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+            - generic [ref=e1165]: "1953"
+          - generic [ref=e1167] [cursor=pointer]:
+            - generic [ref=e1168]:
+              - generic [ref=e1170]: 
+              - img "The Great St. Louis Bank Robbery" [ref=e1171]
+              - generic:
+                - button "Play" [ref=e1175]:
+                  - generic [ref=e1176]: 
+                - generic [ref=e1177]:
+                  - button "Mark played" [ref=e1178]:
+                    - generic [ref=e1179]: 
+                  - button "Add to favorites" [ref=e1180]:
+                    - generic [ref=e1181]: 
+                  - button "More" [ref=e1182]:
+                    - generic [ref=e1183]: 
+            - link "The Great St. Louis Bank Robbery" [ref=e1186]:
+              - /url: "#/details?id=b74b4d5de01b4e1a5ce43511c3684ad8&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+            - generic [ref=e1187]: "1959"
+          - generic [ref=e1189] [cursor=pointer]:
+            - generic [ref=e1190]:
+              - generic [ref=e1192]: 
+              - img "Alone in the Night" [ref=e1193]
+              - generic:
+                - button "Play" [ref=e1197]:
+                  - generic [ref=e1198]: 
+                - generic [ref=e1199]:
+                  - button "Mark played" [ref=e1200]:
+                    - generic [ref=e1201]: 
+                  - button "Favorite" [ref=e1202]:
+                    - generic [ref=e1203]: 
+                  - button "More" [ref=e1204]:
+                    - generic [ref=e1205]: 
+            - link "Pioneer One" [ref=e1208]:
+              - /url: "#/details?id=9bd5926326d651153928e0d11c6ee7cb&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+            - link "S1:E3 - Alone in the Night" [ref=e1211]:
+              - /url: "#/details?id=173a94d516c79947da16ba9b1b84a4e0&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+          - generic [ref=e1213] [cursor=pointer]:
+            - generic [ref=e1214]:
+              - generic [ref=e1216]: 
+              - img "Dracula" [ref=e1217]
+              - generic:
+                - button "Play" [ref=e1221]:
+                  - generic [ref=e1222]: 
+                - generic [ref=e1223]:
+                  - button "Mark played" [ref=e1224]:
+                    - generic [ref=e1225]: 
+                  - button "Add to favorites" [ref=e1226]:
+                    - generic [ref=e1227]: 
+                  - button "More" [ref=e1228]:
+                    - generic [ref=e1229]: 
+            - link "Dracula" [ref=e1232]:
+              - /url: "#/details?id=c002f0f88ee970cce7f138bbc925de64&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+            - generic [ref=e1233]: "1931"
+          - generic [ref=e1235] [cursor=pointer]:
+            - generic [ref=e1236]:
+              - generic [ref=e1238]: 
+              - img "Jungle Book" [ref=e1239]
+              - generic:
+                - button "Play" [ref=e1243]:
+                  - generic [ref=e1244]: 
+                - generic [ref=e1245]:
+                  - button "Mark played" [ref=e1246]:
+                    - generic [ref=e1247]: 
+                  - button "Add to favorites" [ref=e1248]:
+                    - generic [ref=e1249]: 
+                  - button "More" [ref=e1250]:
+                    - generic [ref=e1251]: 
+            - link "Jungle Book" [ref=e1254]:
+              - /url: "#/details?id=e16725e2c1c4367ec596cf93c38bbe4f&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+            - generic [ref=e1255]: "1942"
+          - generic [ref=e1257] [cursor=pointer]:
+            - generic [ref=e1258]:
+              - generic [ref=e1260]: 
+              - img "Earthfall" [ref=e1261]
+              - generic:
+                - button "Play" [ref=e1265]:
+                  - generic [ref=e1266]: 
+                - generic [ref=e1267]:
+                  - button "Mark played" [ref=e1268]:
+                    - generic [ref=e1269]: 
+                  - button "Add to favorites" [ref=e1270]:
+                    - generic [ref=e1271]: 
+                  - button "More" [ref=e1272]:
+                    - generic [ref=e1273]: 
+            - link "Pioneer One" [ref=e1276]:
+              - /url: "#/details?id=9bd5926326d651153928e0d11c6ee7cb&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+            - link "S1:E1 - Earthfall" [ref=e1279]:
+              - /url: "#/details?id=f717d85df782816c2ab75423e32f740b&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+          - generic [ref=e1281] [cursor=pointer]:
+            - generic [ref=e1282]:
+              - generic [ref=e1284]: 
+              - img "The Great Train Robbery" [ref=e1285]
+              - generic:
+                - button "Play" [ref=e1289]:
+                  - generic [ref=e1290]: 
+                - generic [ref=e1291]:
+                  - button "Mark played" [ref=e1292]:
+                    - generic [ref=e1293]: 
+                  - button "Add to favorites" [ref=e1294]:
+                    - generic [ref=e1295]: 
+                  - button "More" [ref=e1296]:
+                    - generic [ref=e1297]: 
+            - link "The Great Train Robbery" [ref=e1300]:
+              - /url: "#/details?id=788ae1cdf3816e3441e29dd3a96ddfe1&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+            - generic [ref=e1301]: "1903"
+          - generic [ref=e1303] [cursor=pointer]:
+            - generic [ref=e1304]:
+              - generic [ref=e1306]: 
+              - img "The Man From Mars" [ref=e1307]
+              - generic:
+                - button "Play" [ref=e1311]:
+                  - generic [ref=e1312]: 
+                - generic [ref=e1313]:
+                  - button "Mark played" [ref=e1314]:
+                    - generic [ref=e1315]: 
+                  - button "Add to favorites" [ref=e1316]:
+                    - generic [ref=e1317]: 
+                  - button "More" [ref=e1318]:
+                    - generic [ref=e1319]: 
+            - link "Pioneer One" [ref=e1322]:
+              - /url: "#/details?id=9bd5926326d651153928e0d11c6ee7cb&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+            - link "S1:E2 - The Man From Mars" [ref=e1325]:
+              - /url: "#/details?id=b80159226d16576d4c0613750e27c072&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+      - text:    
+      - text:   
+      - generic [ref=e325]:
+        - generic [ref=e326]:
+          - link "Recently Added in Movies" [ref=e328] [cursor=pointer]:
+            - /url: "#/movies?topParentId=f137a2dd21bbc1b99aa5c0f6bf02a805&collectionType=movies&tab=1"
+            - heading "Recently Added in Movies" [level=2] [ref=e329]
+            - generic [ref=e330]: 
+          - generic [ref=e331]:
+            - button "Previous" [disabled] [ref=e332]:
+              - generic [ref=e333]: 
+            - button "Next" [ref=e334] [cursor=pointer]:
+              - generic [ref=e335]: 
+          - generic [ref=e337]:
+            - generic [ref=e339] [cursor=pointer]:
+              - generic [ref=e340]:
+                - generic [ref=e342]: 
+                - img "Dracula" [ref=e343]
+                - generic:
+                  - button "Play" [ref=e347]:
+                    - generic [ref=e348]: 
+                  - generic [ref=e349]:
+                    - button "Mark played" [ref=e350]:
+                      - generic [ref=e351]: 
+                    - button "Add to favorites" [ref=e352]:
+                      - generic [ref=e353]: 
+                    - button "More" [ref=e354]:
+                      - generic [ref=e355]: 
+              - link "Dracula" [ref=e358]:
+                - /url: "#/details?id=c002f0f88ee970cce7f138bbc925de64&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+              - generic [ref=e359]: "1931"
+            - generic [ref=e361] [cursor=pointer]:
+              - generic [ref=e362]:
+                - generic [ref=e364]: 
+                - img "Sahara" [ref=e365]
+                - generic:
+                  - button "Play" [ref=e366]:
+                    - generic [ref=e367]: 
+                  - generic [ref=e368]:
+                    - button "Mark played" [ref=e369]:
+                      - generic [ref=e370]: 
+                    - button "Add to favorites" [ref=e371]:
+                      - generic [ref=e372]: 
+                    - button "More" [ref=e373]:
+                      - generic [ref=e374]: 
+              - link "Sahara" [ref=e377]:
+                - /url: "#/details?id=70853c7dde5e5759b151cd76876ab6c2&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+              - generic [ref=e378]: "1943"
+            - generic [ref=e380] [cursor=pointer]:
+              - generic [ref=e381]:
+                - generic [ref=e383]: 
+                - 'img "Caminandes: Llama Drama" [ref=e384]':
+                  - generic [ref=e387]: 
+                - generic:
+                  - button "Play" [ref=e388]:
+                    - generic [ref=e389]: 
+                  - generic [ref=e390]:
+                    - button "Watched" [ref=e391]:
+                      - generic [ref=e392]: 
+                    - button "Add to favorites" [ref=e393]:
+                      - generic [ref=e394]: 
+                    - button "More" [ref=e395]:
+                      - generic [ref=e396]: 
+              - 'link "Caminandes: Llama Drama" [ref=e399]':
+                - /url: "#/details?id=c541e7545e58b28cd4d0da7aac89d7e8&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+              - generic [ref=e400]: "2013"
+            - generic [ref=e402] [cursor=pointer]:
+              - generic [ref=e403]:
+                - generic [ref=e405]: 
+                - 'img "Caminandes: Llamigos" [ref=e406]':
+                  - generic [ref=e409]: 
+                - generic:
+                  - button "Play" [ref=e410]:
+                    - generic [ref=e411]: 
+                  - generic [ref=e412]:
+                    - button "Watched" [ref=e413]:
+                      - generic [ref=e414]: 
+                    - button "Add to favorites" [ref=e415]:
+                      - generic [ref=e416]: 
+                    - button "More" [ref=e417]:
+                      - generic [ref=e418]: 
+              - 'link "Caminandes: Llamigos" [ref=e421]':
+                - /url: "#/details?id=c7eb95d14156c803611cf4a78ac469f6&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+              - generic [ref=e422]: "2016"
+            - generic [ref=e424] [cursor=pointer]:
+              - generic [ref=e425]:
+                - generic [ref=e427]: 
+                - 'img "Caminandes: Gran Dillama" [ref=e428]':
+                  - generic [ref=e890]: 
+                - generic:
+                  - button "Play" [ref=e432]:
+                    - generic [ref=e433]: 
+                  - generic [ref=e434]:
+                    - button "Watched" [ref=e435]:
+                      - generic [ref=e436]: 
+                    - button "Add to favorites" [ref=e437]:
+                      - generic [ref=e438]: 
+                    - button "More" [ref=e439]:
+                      - generic [ref=e440]: 
+              - 'link "Caminandes: Gran Dillama" [ref=e443]':
+                - /url: "#/details?id=1056b7d34f0fa0b8ce635428e8b27f37&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+              - generic [ref=e444]: "2013"
+            - generic [ref=e446] [cursor=pointer]:
+              - generic [ref=e447]:
+                - generic [ref=e449]: 
+                - img "The Boy in the Plastic Bubble" [ref=e450]
+                - generic:
+                  - button "Play" [ref=e454]:
+                    - generic [ref=e455]: 
+                  - generic [ref=e456]:
+                    - button "Mark played" [ref=e457]:
+                      - generic [ref=e458]: 
+                    - button "Add to favorites" [ref=e459]:
+                      - generic [ref=e460]: 
+                    - button "More" [ref=e461]:
+                      - generic [ref=e462]: 
+              - link "The Boy in the Plastic Bubble" [ref=e465]:
+                - /url: "#/details?id=edb39341c5039551a5157e51fe4a3364&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+              - generic [ref=e466]: "1976"
+            - generic [ref=e468] [cursor=pointer]:
+              - generic [ref=e469]:
+                - generic [ref=e471]: 
+                - img "Jungle Book" [ref=e472]
+                - generic:
+                  - button "Play" [ref=e476]:
+                    - generic [ref=e477]: 
+                  - generic [ref=e478]:
+                    - button "Mark played" [ref=e479]:
+                      - generic [ref=e480]: 
+                    - button "Add to favorites" [ref=e481]:
+                      - generic [ref=e482]: 
+                    - button "More" [ref=e483]:
+                      - generic [ref=e484]: 
+              - link "Jungle Book" [ref=e487]:
+                - /url: "#/details?id=e16725e2c1c4367ec596cf93c38bbe4f&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+              - generic [ref=e488]: "1942"
+            - generic [ref=e490] [cursor=pointer]:
+              - generic [ref=e491]:
+                - generic [ref=e493]: 
+                - img "Night of the Living Dead" [ref=e494]
+                - generic:
+                  - button "Play" [ref=e498]:
+                    - generic [ref=e499]: 
+                  - generic [ref=e500]:
+                    - button "Mark played" [ref=e501]:
+                      - generic [ref=e502]: 
+                    - button "Add to favorites" [ref=e503]:
+                      - generic [ref=e504]: 
+                    - button "More" [ref=e505]:
+                      - generic [ref=e506]: 
+              - link "Night of the Living Dead" [ref=e509]:
+                - /url: "#/details?id=5e6e8380563c5211106652362c5c6843&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+              - generic [ref=e510]: "1968"
+            - generic [ref=e512] [cursor=pointer]:
+              - generic [ref=e513]:
+                - generic [ref=e515]: 
+                - img "The Great Train Robbery" [ref=e516]
+                - generic:
+                  - button "Play" [ref=e520]:
+                    - generic [ref=e521]: 
+                  - generic [ref=e522]:
+                    - button "Mark played" [ref=e523]:
+                      - generic [ref=e524]: 
+                    - button "Add to favorites" [ref=e525]:
+                      - generic [ref=e526]: 
+                    - button "More" [ref=e527]:
+                      - generic [ref=e528]: 
+              - link "The Great Train Robbery" [ref=e531]:
+                - /url: "#/details?id=788ae1cdf3816e3441e29dd3a96ddfe1&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+              - generic [ref=e532]: "1903"
+            - generic [ref=e534] [cursor=pointer]:
+              - generic [ref=e535]:
+                - generic [ref=e537]: 
+                - img "The Great St. Louis Bank Robbery" [ref=e538]
+                - generic:
+                  - button "Play" [ref=e539]:
+                    - generic [ref=e540]: 
+                  - generic [ref=e541]:
+                    - button "Mark played" [ref=e542]:
+                      - generic [ref=e543]: 
+                    - button "Add to favorites" [ref=e544]:
+                      - generic [ref=e545]: 
+                    - button "More" [ref=e546]:
+                      - generic [ref=e547]: 
+              - link "The Great St. Louis Bank Robbery" [ref=e550]:
+                - /url: "#/details?id=b74b4d5de01b4e1a5ce43511c3684ad8&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+              - generic [ref=e551]: "1959"
+            - generic [ref=e553] [cursor=pointer]:
+              - generic [ref=e554]:
+                - generic [ref=e556]: 
+                - img "King Lear" [ref=e557]
+                - generic:
+                  - button "Play" [ref=e561]:
+                    - generic [ref=e562]: 
+                  - generic [ref=e563]:
+                    - button "Mark played" [ref=e564]:
+                      - generic [ref=e565]: 
+                    - button "Favorite" [ref=e566]:
+                      - generic [ref=e567]: 
+                    - button "More" [ref=e568]:
+                      - generic [ref=e569]: 
+              - link "King Lear" [ref=e572]:
+                - /url: "#/details?id=b07f6514a3e3aa7d8c273458c9cd4c82&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+              - generic [ref=e573]: "1953"
+        - generic [ref=e574]:
+          - link "Recently Added in Music" [ref=e576] [cursor=pointer]:
+            - /url: "#/music?topParentId=7e64e319657a9516ec78490da03edccb&collectionType=music&tab=1"
+            - heading "Recently Added in Music" [level=2] [ref=e577]
+            - generic [ref=e578]: 
+          - generic [ref=e579]:  
+          - generic [ref=e581]:
+            - generic [ref=e583] [cursor=pointer]:
+              - generic [ref=e584]:
+                - img "Thraximundar" [ref=e586]:
+                  - generic [ref=e587]: 
+                - generic:
+                  - button "Play" [ref=e588]:
+                    - generic [ref=e589]: 
+                  - generic [ref=e590]:
+                    - button "Add to favorites" [ref=e591]:
+                      - generic [ref=e592]: 
+                    - button "More" [ref=e593]:
+                      - generic [ref=e594]: 
+              - link "Thraximundar" [ref=e597]:
+                - /url: "#/details?id=9f4119bdf8257b3f75141745432d0171&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+              - link "Joshua Boniface" [ref=e600]:
+                - /url: "#/details?id=6330eeddf969d120c0c4c054770f0ee0&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+            - generic [ref=e602] [cursor=pointer]:
+              - generic [ref=e603]:
+                - generic [ref=e605]: 
+                - img "Nemesis" [ref=e606]
+                - generic:
+                  - button "Play" [ref=e607]:
+                    - generic [ref=e608]: 
+                  - generic [ref=e609]:
+                    - button "Add to favorites" [ref=e610]:
+                      - generic [ref=e611]: 
+                    - button "More" [ref=e612]:
+                      - generic [ref=e613]: 
+              - link "Nemesis" [ref=e616]:
+                - /url: "#/details?id=f7e6d83954e06a0d46724a6068fa21ff&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+              - link "Leap Fidei" [ref=e619]:
+                - /url: "#/details?id=78e6763b3d9b58c349a58ce5eb7877c1&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+            - generic [ref=e621] [cursor=pointer]:
+              - generic [ref=e622]:
+                - generic [ref=e624]: 
+                - img "Promo" [ref=e625]
+                - generic:
+                  - button "Play" [ref=e626]:
+                    - generic [ref=e627]: 
+                  - generic [ref=e628]:
+                    - button "Add to favorites" [ref=e629]:
+                      - generic [ref=e630]: 
+                    - button "More" [ref=e631]:
+                      - generic [ref=e632]: 
+              - link "Promo" [ref=e635]:
+                - /url: "#/details?id=920673748d7c8a4aa03144614f1f947f&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+            - generic [ref=e638] [cursor=pointer]:
+              - generic [ref=e639]:
+                - generic [ref=e641]: 
+                - img "You Can't Stop Da Funk" [ref=e642]
+                - generic:
+                  - button "Play" [ref=e643]:
+                    - generic [ref=e644]: 
+                  - generic [ref=e645]:
+                    - button "Add to favorites" [ref=e646]:
+                      - generic [ref=e647]: 
+                    - button "More" [ref=e648]:
+                      - generic [ref=e649]: 
+              - link "You Can't Stop Da Funk" [ref=e652]:
+                - /url: "#/details?id=f21ea9ece4e6e26ec26ebfb81b82ad78&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+        - generic [ref=e654]:
+          - link "Recently Added in Shows" [ref=e656] [cursor=pointer]:
+            - /url: "#/tv?topParentId=a656b907eb3a73532e40e44b968d0225&collectionType=tvshows&tab=1"
+            - heading "Recently Added in Shows" [level=2] [ref=e657]
+            - generic [ref=e658]: 
+          - generic [ref=e659]:  
+          - generic [ref=e663] [cursor=pointer]:
+            - generic [ref=e664]:
+              - generic [ref=e666]: 
+              - img "Alone in the Night" [ref=e667]
+              - generic:
+                - button "Play" [ref=e671]:
+                  - generic [ref=e672]: 
+                - generic [ref=e673]:
+                  - button "Mark played" [ref=e674]:
+                    - generic [ref=e675]: 
+                  - button "Favorite" [ref=e676]:
+                    - generic [ref=e677]: 
+                  - button "More" [ref=e678]:
+                    - generic [ref=e679]: 
+            - link "Pioneer One" [ref=e682]:
+              - /url: "#/details?id=9bd5926326d651153928e0d11c6ee7cb&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+            - link "S1:E3 - Alone in the Night" [ref=e685]:
+              - /url: "#/details?id=173a94d516c79947da16ba9b1b84a4e0&serverId=f0b3381645f04afb9a0e392e74b6a1b0"

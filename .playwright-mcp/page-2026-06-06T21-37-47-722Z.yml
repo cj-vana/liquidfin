@@ -1,0 +1,518 @@
+- generic [ref=e1]:
+  - generic:
+    - generic:
+      - generic [ref=e6]:
+        - link "Home" [ref=e8] [cursor=pointer]:
+          - /url: "#/home"
+          - generic [ref=e9]: 
+          - generic [ref=e10]: Home
+        - generic [ref=e11]:
+          - heading "Media" [level=3] [ref=e12]
+          - link "Movies" [ref=e13] [cursor=pointer]:
+            - /url: "#/movies?topParentId=f137a2dd21bbc1b99aa5c0f6bf02a805&collectionType=movies"
+            - generic [ref=e14]: 
+            - generic [ref=e15]: Movies
+          - link "Music" [ref=e16] [cursor=pointer]:
+            - /url: "#/music?topParentId=7e64e319657a9516ec78490da03edccb&collectionType=music"
+            - generic [ref=e17]: 
+            - generic [ref=e18]: Music
+          - link "Playlists" [ref=e19] [cursor=pointer]:
+            - /url: "#/list?parentId=accbf8ec18a80e054486551fbf1306b9&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+            - generic [ref=e20]: 
+            - generic [ref=e21]: Playlists
+          - link "Shows" [ref=e22] [cursor=pointer]:
+            - /url: "#/tv?topParentId=a656b907eb3a73532e40e44b968d0225&collectionType=tvshows"
+            - generic [ref=e23]: 
+            - generic [ref=e24]: Shows
+        - generic [ref=e25]:
+          - heading "User" [level=3] [ref=e26]
+          - link "Settings" [ref=e27] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e28]: 
+            - generic [ref=e29]: Settings
+          - link "Sign Out" [ref=e30] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e31]: 
+            - generic [ref=e32]: Sign Out
+      - generic [ref=e34]:
+        - generic [ref=e35]:
+          - button "Back" [ref=e1533] [cursor=pointer]:
+            - generic [ref=e1534]: 
+          - button "Home" [ref=e1535] [cursor=pointer]:
+            - generic [ref=e1536]: 
+          - button "Menu" [active] [ref=e36] [cursor=pointer]:
+            - generic [ref=e37]: 
+        - generic [ref=e39]:
+          - button "SyncPlay" [ref=e40] [cursor=pointer]:
+            - generic [ref=e41]: 
+          - text: 
+          - button "Cast to Device" [ref=e42] [cursor=pointer]:
+            - generic [ref=e43]: 
+          - button "Search" [ref=e44] [cursor=pointer]:
+            - generic [ref=e45]: 
+          - button "demo" [ref=e46] [cursor=pointer]
+    - generic:
+      - text:                                                                                                                                                                                                                           
+      - generic [ref=e1843]:
+        - generic [ref=e1844]:
+          - generic [ref=e1849] [cursor=pointer]: 
+          - generic [ref=e1851]:
+            - generic [ref=e1852]:
+              - text: 
+              - heading "Dracula" [level=1] [ref=e1854]
+              - generic [ref=e1855]:
+                - generic [ref=e1856]: "1931"
+                - generic [ref=e1857]: 1h 14m
+                - generic [ref=e1858]: NR
+                - generic [ref=e1859]:
+                  - generic [ref=e1860]: 
+                  - text: "7.2"
+                - generic [ref=e1861]: "94"
+                - generic [ref=e1862]: Ends at 6:26 PM
+            - generic [ref=e1863]:
+              - button "Resume" [ref=e1864] [cursor=pointer]:
+                - generic [ref=e1866]: 
+              - button "Play" [ref=e1867] [cursor=pointer]:
+                - generic [ref=e1869]: 
+              - text: 
+              - button "Trailer" [ref=e1870] [cursor=pointer]:
+                - generic [ref=e1872]: 
+              - text:    
+              - button "Mark played" [ref=e1873] [cursor=pointer]:
+                - generic [ref=e1875]: 
+              - button "Add to favorites" [ref=e1876] [cursor=pointer]:
+                - generic [ref=e1878]: 
+              - text: 
+              - button "More" [ref=e1879] [cursor=pointer]:
+                - generic [ref=e1881]: 
+          - generic [ref=e1883]:
+            - generic [ref=e1884]:
+              - generic [ref=e1885]:
+                - generic [ref=e1886]: Version
+                - combobox "Version" [ref=e1887]:
+                  - option "[B&W]" [selected]
+                  - option "[Colourized]"
+                - generic:
+                  - generic: 
+              - generic [ref=e1888]:
+                - generic [ref=e1889]: Video
+                - combobox "Video" [disabled] [ref=e1890]:
+                  - option "1080p H264 SDR" [selected]
+                - text: 
+              - generic [ref=e1891]:
+                - generic [ref=e1892]: Audio
+                - combobox "Audio" [disabled] [ref=e1893]:
+                  - option "English - AAC - Stereo - Default" [selected]
+                - text: 
+              - text: 
+            - generic [ref=e1894]:
+              - paragraph
+              - heading "The story of the strangest passion the world has ever known!" [level=3] [ref=e1895]
+              - paragraph [ref=e1896]:
+                - paragraph [ref=e1898]: British estate agent Renfield travels to Transylvania to meet the mysterious Count Dracula, who is interested in leasing a castle in London. After Dracula enslaves Renfield and drives him to insanity, the pair sail to London together and Dracula, a secret vampire, begins preying on London socialites.
+              - generic [ref=e1899]:
+                - text: "Tags:"
+                - link "monster" [ref=e1900] [cursor=pointer]:
+                  - /url: "#/list?type=tag&tag=monster&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - text: ","
+                - link "based on novel or book" [ref=e1901] [cursor=pointer]:
+                  - /url: "#/list?type=tag&tag=based%20on%20novel%20or%20book&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - text: ","
+                - link "transylvania" [ref=e1902] [cursor=pointer]:
+                  - /url: "#/list?type=tag&tag=transylvania&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - text: ","
+                - link "vampire" [ref=e1903] [cursor=pointer]:
+                  - /url: "#/list?type=tag&tag=vampire&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - text: ","
+                - link "spider" [ref=e1904] [cursor=pointer]:
+                  - /url: "#/list?type=tag&tag=spider&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - text: ","
+                - link "castle" [ref=e1905] [cursor=pointer]:
+                  - /url: "#/list?type=tag&tag=castle&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - text: ","
+                - link "bat" [ref=e1906] [cursor=pointer]:
+                  - /url: "#/list?type=tag&tag=bat&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - text: ","
+                - link "undead" [ref=e1907] [cursor=pointer]:
+                  - /url: "#/list?type=tag&tag=undead&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - text: ","
+                - link "count" [ref=e1908] [cursor=pointer]:
+                  - /url: "#/list?type=tag&tag=count&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - text: ","
+                - link "based on play or musical" [ref=e1909] [cursor=pointer]:
+                  - /url: "#/list?type=tag&tag=based%20on%20play%20or%20musical&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - text: ","
+                - link "sanitarium" [ref=e1910] [cursor=pointer]:
+                  - /url: "#/list?type=tag&tag=sanitarium&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - text: ","
+                - link "black and white" [ref=e1911] [cursor=pointer]:
+                  - /url: "#/list?type=tag&tag=black%20and%20white&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - text: ","
+                - link "pre-code" [ref=e1912] [cursor=pointer]:
+                  - /url: "#/list?type=tag&tag=pre-code&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - text: ","
+                - link "real estate agent" [ref=e1913] [cursor=pointer]:
+                  - /url: "#/list?type=tag&tag=real%20estate%20agent&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - text: ","
+                - link "lunatic" [ref=e1914] [cursor=pointer]:
+                  - /url: "#/list?type=tag&tag=lunatic&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - text: ","
+                - link "dracula" [ref=e1915] [cursor=pointer]:
+                  - /url: "#/list?type=tag&tag=dracula&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - text: ","
+                - link "halloween" [ref=e1916] [cursor=pointer]:
+                  - /url: "#/list?type=tag&tag=halloween&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - text: ","
+                - link "biting" [ref=e1917] [cursor=pointer]:
+                  - /url: "#/list?type=tag&tag=biting&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+              - generic [ref=e1918]:
+                - link "IMDb" [ref=e1919] [cursor=pointer]:
+                  - /url: https://www.imdb.com/title/tt0021814
+                - text: ","
+                - link "TMDB" [ref=e1920] [cursor=pointer]:
+                  - /url: https://www.themoviedb.org/movie/138
+            - generic [ref=e1921]:
+              - generic [ref=e1922]:
+                - generic [ref=e1923]: Genre
+                - link "Horror" [ref=e1925] [cursor=pointer]:
+                  - /url: "#/list?genreId=8b9bd9a3eddad02f2b759b4938fdd0b8&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+              - generic [ref=e1926]:
+                - generic [ref=e1927]: Director
+                - link "Tod Browning" [ref=e1929] [cursor=pointer]:
+                  - /url: "#/details?id=b0dab044aa424d3d3e656ebbb7467f1a&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+              - generic [ref=e1930]:
+                - generic [ref=e1931]: Writers
+                - generic [ref=e1932]:
+                  - link "Tod Browning" [ref=e1933] [cursor=pointer]:
+                    - /url: "#/details?id=b0dab044aa424d3d3e656ebbb7467f1a&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                  - text: ","
+                  - link "Bram Stoker" [ref=e1934] [cursor=pointer]:
+                    - /url: "#/details?id=e91f54a44a460ab7127262850a03effd&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                  - text: ","
+                  - link "Hamilton Deane" [ref=e1935] [cursor=pointer]:
+                    - /url: "#/details?id=454a5392d35b4b2dec28784b255e8e67&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                  - text: ","
+                  - link "John L. Balderston" [ref=e1936] [cursor=pointer]:
+                    - /url: "#/details?id=22bf8d51c160599d8ddaeb4ff48f406c&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                  - text: ","
+                  - link "Dudley Murphy" [ref=e1937] [cursor=pointer]:
+                    - /url: "#/details?id=d07b2599e155d33bcfc576391d94e7f1&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                  - text: ","
+                  - link "Frederick Stephani" [ref=e1938] [cursor=pointer]:
+                    - /url: "#/details?id=90f07a32efc7bbbea0716ad26ce6c74d&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                  - text: ","
+                  - link "Louis Stevens" [ref=e1939] [cursor=pointer]:
+                    - /url: "#/details?id=ed72f92ad8abb16507b35481de346dfa&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                  - text: ","
+                  - link "Garrett Fort" [ref=e1940] [cursor=pointer]:
+                    - /url: "#/details?id=2abfd61d7f6a1a43e5b83148e3831408&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                  - text: ","
+                  - link "Louis Bromfield" [ref=e1941] [cursor=pointer]:
+                    - /url: "#/details?id=171f82f307d2486ab9d345c645eb49b9&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                  - text: ","
+                  - link "Max Cohen" [ref=e1942] [cursor=pointer]:
+                    - /url: "#/details?id=0927884eb3a0755f594471c652434029&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+              - generic [ref=e1943]:
+                - generic [ref=e1944]: Studio
+                - link "Universal Pictures" [ref=e1946] [cursor=pointer]:
+                  - /url: "#/list?studioId=e56aaac7ab0bb0f5f48371be0252bab4&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+        - generic [ref=e1948]:
+          - text:      
+          - generic [ref=e1949]:
+            - heading "Cast & Crew" [level=2] [ref=e1950]
+            - generic [ref=e1951]:
+              - button "Previous" [disabled] [ref=e1952]:
+                - generic [ref=e1953]: 
+              - button "Next" [ref=e1954] [cursor=pointer]:
+                - generic [ref=e1955]: 
+            - generic [ref=e1957]:
+              - generic [ref=e1959] [cursor=pointer]:
+                - generic [ref=e1960]:
+                  - generic [ref=e1962]: 
+                  - img "Bela Lugosi" [ref=e1963]
+                  - button "More" [ref=e1965]:
+                    - generic [ref=e1966]: 
+                - link "Bela Lugosi" [ref=e1969]:
+                  - /url: "#/details?id=5e35154b8255d7b03f9a259bb359362f&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e1971]: as Count Dracula
+              - generic [ref=e1973] [cursor=pointer]:
+                - generic [ref=e1974]:
+                  - generic [ref=e1976]: 
+                  - img "Helen Chandler" [ref=e1977]
+                  - button "More" [ref=e1979]:
+                    - generic [ref=e1980]: 
+                - link "Helen Chandler" [ref=e1983]:
+                  - /url: "#/details?id=793baaf433de8538becd91654dd28589&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e1985]: as Mina Seward
+              - generic [ref=e1987] [cursor=pointer]:
+                - generic [ref=e1988]:
+                  - img "David Manners" [ref=e1990]:
+                    - generic [ref=e1991]: 
+                  - button "More" [ref=e1993]:
+                    - generic [ref=e1994]: 
+                - link "David Manners" [ref=e1997]:
+                  - /url: "#/details?id=6b04a31c0b3f1512a45519253e9f6a35&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e1999]: as John Harker
+              - generic [ref=e2001] [cursor=pointer]:
+                - generic [ref=e2002]:
+                  - img "Dwight Frye" [ref=e2004]:
+                    - generic [ref=e2005]: 
+                  - button "More" [ref=e2007]:
+                    - generic [ref=e2008]: 
+                - link "Dwight Frye" [ref=e2011]:
+                  - /url: "#/details?id=d95d48831318ed4d0e3659568284a1bc&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2013]: as Renfield
+              - generic [ref=e2015] [cursor=pointer]:
+                - generic [ref=e2016]:
+                  - img "Edward Van Sloan" [ref=e2018]:
+                    - generic [ref=e2019]: 
+                  - button "More" [ref=e2021]:
+                    - generic [ref=e2022]: 
+                - link "Edward Van Sloan" [ref=e2025]:
+                  - /url: "#/details?id=6c5e96c461933af1feaca2a3617c16a7&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2027]: as Professor Abraham Van Helsing
+              - generic [ref=e2029] [cursor=pointer]:
+                - generic [ref=e2030]:
+                  - img "Herbert Bunston" [ref=e2032]:
+                    - generic [ref=e2033]: 
+                  - button "More" [ref=e2035]:
+                    - generic [ref=e2036]: 
+                - link "Herbert Bunston" [ref=e2039]:
+                  - /url: "#/details?id=4448597003f7a825b499c6b4cdb86ec5&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2041]: as Dr. Jack Seward
+              - generic [ref=e2043] [cursor=pointer]:
+                - generic [ref=e2044]:
+                  - img "Frances Dade" [ref=e2046]:
+                    - generic [ref=e2047]: 
+                  - button "More" [ref=e2049]:
+                    - generic [ref=e2050]: 
+                - link "Frances Dade" [ref=e2053]:
+                  - /url: "#/details?id=d225deb04a58a595b83d6dae6cb7e40a&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2055]: as Lucy Weston
+              - generic [ref=e2057] [cursor=pointer]:
+                - generic [ref=e2058]:
+                  - img "Joan Standing" [ref=e2060]:
+                    - generic [ref=e2061]: 
+                  - button "More" [ref=e2063]:
+                    - generic [ref=e2064]: 
+                - link "Joan Standing" [ref=e2067]:
+                  - /url: "#/details?id=953518b6d443f0d6956fd166d1f159ce&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2069]: as Nurse Briggs
+              - generic [ref=e2071] [cursor=pointer]:
+                - generic [ref=e2072]:
+                  - img "Charles K. Gerrard" [ref=e2074]:
+                    - generic [ref=e2075]: 
+                  - button "More" [ref=e2077]:
+                    - generic [ref=e2078]: 
+                - link "Charles K. Gerrard" [ref=e2081]:
+                  - /url: "#/details?id=f0a671c9ac66f7efb3a2cc157d207338&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2083]: as Martin
+              - generic [ref=e2085] [cursor=pointer]:
+                - generic [ref=e2086]:
+                  - img "Anna Bakacs" [ref=e2088]:
+                    - generic [ref=e2089]: 
+                  - button "More" [ref=e2091]:
+                    - generic [ref=e2092]: 
+                - link "Anna Bakacs" [ref=e2095]:
+                  - /url: "#/details?id=33f2a2052f32ec8ba4ed2b2efea2044c&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2097]: as Innkeeper's Daughter (uncredited)
+              - generic [ref=e2099] [cursor=pointer]:
+                - generic [ref=e2100]:
+                  - img "Bunny Beatty" [ref=e2102]:
+                    - generic [ref=e2103]: 
+                  - button "More" [ref=e2105]:
+                    - generic [ref=e2106]: 
+                - link "Bunny Beatty" [ref=e2109]:
+                  - /url: "#/details?id=cbf0b469de1e041735f225305409a0b2&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2111]: as Flower Girl (uncredited)
+              - generic [ref=e2113] [cursor=pointer]:
+                - generic [ref=e2114]:
+                  - img "Nicholas Bela" [ref=e2116]:
+                    - generic [ref=e2117]: 
+                  - button "More" [ref=e2119]:
+                    - generic [ref=e2120]: 
+                - link "Nicholas Bela" [ref=e2123]:
+                  - /url: "#/details?id=a5d4af4de0ae041d31ef594ae912388e&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2125]: as Coach Passenger (uncredited)
+              - generic [ref=e2127] [cursor=pointer]:
+                - generic [ref=e2128]:
+                  - img "Daisy Belmore" [ref=e2130]:
+                    - generic [ref=e2131]: 
+                  - button "More" [ref=e2133]:
+                    - generic [ref=e2134]: 
+                - link "Daisy Belmore" [ref=e2137]:
+                  - /url: "#/details?id=7d3f5e4ff79cdd83b558264b3661241b&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2139]: as Coach Passenger (uncredited)
+              - generic [ref=e2141] [cursor=pointer]:
+                - generic [ref=e2142]:
+                  - img "William A. Boardway" [ref=e2144]:
+                    - generic [ref=e2145]: 
+                  - button "More" [ref=e2147]:
+                    - generic [ref=e2148]: 
+                - link "William A. Boardway" [ref=e2151]:
+                  - /url: "#/details?id=68ae50bc1c0f40352bce1e3f4ead2edb&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2153]: as Concertgoer Outside Theatre (uncredited)
+              - generic [ref=e2155] [cursor=pointer]:
+                - generic [ref=e2156]:
+                  - img "Barbara Bozoky" [ref=e2158]:
+                    - generic [ref=e2159]: 
+                  - button "More" [ref=e2161]:
+                    - generic [ref=e2162]: 
+                - link "Barbara Bozoky" [ref=e2165]:
+                  - /url: "#/details?id=564aee146f8aff2d1412d90dbae0c077&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2167]: as Innkeeper's Wife (uncredited)
+              - generic [ref=e2169] [cursor=pointer]:
+                - generic [ref=e2170]:
+                  - generic [ref=e2172]: 
+                  - img "Tod Browning" [ref=e2173]
+                  - button "More" [ref=e2175]:
+                    - generic [ref=e2176]: 
+                - link "Tod Browning" [ref=e2179]:
+                  - /url: "#/details?id=b0dab044aa424d3d3e656ebbb7467f1a&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2180]: Director
+                - generic [ref=e2181]: Producer
+              - generic [ref=e2183] [cursor=pointer]:
+                - generic [ref=e2184]:
+                  - generic [ref=e2186]: 
+                  - img "Tod Browning" [ref=e2187]
+                  - button "More" [ref=e2189]:
+                    - generic [ref=e2190]: 
+                - link "Tod Browning" [ref=e2193]:
+                  - /url: "#/details?id=b0dab044aa424d3d3e656ebbb7467f1a&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2194]: Writer
+                - generic [ref=e2195]: Director
+              - generic [ref=e2197] [cursor=pointer]:
+                - generic [ref=e2198]:
+                  - generic [ref=e2200]: 
+                  - img "Bram Stoker" [ref=e2201]
+                  - button "More" [ref=e2203]:
+                    - generic [ref=e2204]: 
+                - link "Bram Stoker" [ref=e2207]:
+                  - /url: "#/details?id=e91f54a44a460ab7127262850a03effd&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2208]: Writer
+                - generic [ref=e2209]: Novel
+              - generic [ref=e2211] [cursor=pointer]:
+                - generic [ref=e2212]:
+                  - img "Hamilton Deane" [ref=e2214]:
+                    - generic [ref=e2215]: 
+                  - button "More" [ref=e2217]:
+                    - generic [ref=e2218]: 
+                - link "Hamilton Deane" [ref=e2221]:
+                  - /url: "#/details?id=454a5392d35b4b2dec28784b255e8e67&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2222]: Writer
+                - generic [ref=e2223]: Theatre Play
+              - generic [ref=e2225] [cursor=pointer]:
+                - generic [ref=e2226]:
+                  - generic [ref=e2228]: 
+                  - img "John L. Balderston" [ref=e2229]
+                  - button "More" [ref=e2231]:
+                    - generic [ref=e2232]: 
+                - link "John L. Balderston" [ref=e2235]:
+                  - /url: "#/details?id=22bf8d51c160599d8ddaeb4ff48f406c&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2236]: Writer
+                - generic [ref=e2237]: Theatre Play
+              - generic [ref=e2239] [cursor=pointer]:
+                - generic [ref=e2240]:
+                  - generic [ref=e2242]: 
+                  - img "Dudley Murphy" [ref=e2243]
+                  - button "More" [ref=e2245]:
+                    - generic [ref=e2246]: 
+                - link "Dudley Murphy" [ref=e2249]:
+                  - /url: "#/details?id=d07b2599e155d33bcfc576391d94e7f1&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2250]: Writer
+                - generic [ref=e2251]: Dialogue
+              - generic [ref=e2253] [cursor=pointer]:
+                - generic [ref=e2254]:
+                  - generic [ref=e2256]: 
+                  - img "Frederick Stephani" [ref=e2257]
+                  - button "More" [ref=e2259]:
+                    - generic [ref=e2260]: 
+                - link "Frederick Stephani" [ref=e2263]:
+                  - /url: "#/details?id=90f07a32efc7bbbea0716ad26ce6c74d&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2264]: Writer
+              - generic [ref=e2266] [cursor=pointer]:
+                - generic [ref=e2267]:
+                  - img "Louis Stevens" [ref=e2269]:
+                    - generic [ref=e2270]: 
+                  - button "More" [ref=e2272]:
+                    - generic [ref=e2273]: 
+                - link "Louis Stevens" [ref=e2276]:
+                  - /url: "#/details?id=ed72f92ad8abb16507b35481de346dfa&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2277]: Writer
+              - generic [ref=e2279] [cursor=pointer]:
+                - generic [ref=e2280]:
+                  - img "Garrett Fort" [ref=e2282]:
+                    - generic [ref=e2283]: 
+                  - button "More" [ref=e2285]:
+                    - generic [ref=e2286]: 
+                - link "Garrett Fort" [ref=e2289]:
+                  - /url: "#/details?id=2abfd61d7f6a1a43e5b83148e3831408&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2290]: Writer
+                - generic [ref=e2291]: Screenplay
+              - generic [ref=e2293] [cursor=pointer]:
+                - generic [ref=e2294]:
+                  - img "Louis Bromfield" [ref=e2296]:
+                    - generic [ref=e2297]: 
+                  - button "More" [ref=e2299]:
+                    - generic [ref=e2300]: 
+                - link "Louis Bromfield" [ref=e2303]:
+                  - /url: "#/details?id=171f82f307d2486ab9d345c645eb49b9&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2304]: Writer
+              - generic [ref=e2306] [cursor=pointer]:
+                - generic [ref=e2307]:
+                  - img "Max Cohen" [ref=e2309]:
+                    - generic [ref=e2310]: 
+                  - button "More" [ref=e2312]:
+                    - generic [ref=e2313]: 
+                - link "Max Cohen" [ref=e2316]:
+                  - /url: "#/details?id=0927884eb3a0755f594471c652434029&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2317]: Writer
+                - generic [ref=e2318]: Other
+              - generic [ref=e2320] [cursor=pointer]:
+                - generic [ref=e2321]:
+                  - img "Carl Laemmle Jr." [ref=e2323]:
+                    - generic [ref=e2324]: 
+                  - button "More" [ref=e2326]:
+                    - generic [ref=e2327]: 
+                - link "Carl Laemmle Jr." [ref=e2330]:
+                  - /url: "#/details?id=39b0478055aa120215dda9f1ad4d1d17&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2331]: Producer
+              - generic [ref=e2333] [cursor=pointer]:
+                - generic [ref=e2334]:
+                  - generic [ref=e2336]: 
+                  - img "Tod Browning" [ref=e2337]
+                  - button "More" [ref=e2339]:
+                    - generic [ref=e2340]: 
+                - link "Tod Browning" [ref=e2343]:
+                  - /url: "#/details?id=b0dab044aa424d3d3e656ebbb7467f1a&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2344]: Producer
+              - generic [ref=e2346] [cursor=pointer]:
+                - generic [ref=e2347]:
+                  - img "E.M. Asher" [ref=e2349]:
+                    - generic [ref=e2350]: 
+                  - button "More" [ref=e2352]:
+                    - generic [ref=e2353]: 
+                - link "E.M. Asher" [ref=e2356]:
+                  - /url: "#/details?id=194236fc660d3ac4f083367cd82075f0&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+                - generic [ref=e2357]: Associate Producer
+          - text:        
+          - generic [ref=e2358]:
+            - heading "More Like This" [level=2] [ref=e2359]
+            - generic [ref=e2360]:  
+            - generic [ref=e2364] [cursor=pointer]:
+              - generic [ref=e2365]:
+                - generic [ref=e2367]: 
+                - img "Night of the Living Dead" [ref=e2368]
+                - generic:
+                  - button "Play" [ref=e2372]:
+                    - generic [ref=e2373]: 
+                  - generic [ref=e2374]:
+                    - button "Mark played" [ref=e2375]:
+                      - generic [ref=e2376]: 
+                    - button "Add to favorites" [ref=e2377]:
+                      - generic [ref=e2378]: 
+                    - button "More" [ref=e2379]:
+                      - generic [ref=e2380]: 
+              - link "Night of the Living Dead" [ref=e2383]:
+                - /url: "#/details?id=5e6e8380563c5211106652362c5c6843&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+              - generic [ref=e2384]: "1968"

@@ -10,8 +10,8 @@
    HOW THE GLASS WORKS (3 layers, each degrades on its own):
      1. translucent tint + blur + saturate ........ every engine
      2. specular rim (inset highlight + border) .... every engine
-     3. SVG feTurbulence refraction (data: URI) ..... Chromium only, opt-in
-        via @supports; non-Chromium silently keeps layers 1–2.
+     3. SVG edge-lens refraction + chromatic rim (data: URI) ... Chromium
+        only, via @supports; non-Chromium silently keeps layers 1–2.
 
    TUNING — edit the tokens in :root below:
      --lg-accent .............. brand color (crimson by default)
@@ -22,11 +22,13 @@
 
    LITE MODE (low-end / smart-TV): blur + refraction are GPU-heavy. This theme
    already drops them under body.layout-tv and lowers blur on body.layout-mobile.
-   To force-disable refraction everywhere (keep frosted glass), add AFTER the import:
-     :root { --lg-refract: blur(0); }   /* identity filter — keeps the blur valid */
+   To force-disable refraction everywhere (keep frosted glass), add AFTER the
+   import:  :root { --lg-refract: blur(0); }   (blur(0) is an identity filter,
+   so the rest of the backdrop-filter chain stays valid).
    ===================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block');
 
 /* =====================================================================
    1. TOKENS
@@ -44,12 +46,12 @@
   --lg-transcode:       #eb7e25;          /* leave transcode progress orange */
 
   /* --- glass surfaces (low alpha = strongly see-through, beta-1 feel) --- */
-  --lg-tint:            rgba(24, 26, 34, 0.42);    /* default panel glass */
-  --lg-tint-strong:     rgba(16, 17, 22, 0.62);    /* dialogs / drawer */
+  --lg-tint:            rgba(24, 26, 34, 0.34);    /* default panel glass (beta-1 = see-through) */
+  --lg-tint-strong:     rgba(16, 17, 22, 0.50);    /* dialogs / drawer */
   --lg-film:            rgba(255, 255, 255, 0.06); /* faint top film */
-  --lg-rim:             rgba(255, 255, 255, 0.12); /* hairline border */
-  --lg-rim-hi:          rgba(255, 255, 255, 0.28); /* specular top highlight */
-  --lg-blur:            14px;             /* fallback frosted-glass blur (beta-1 = clearer) */
+  --lg-rim:             rgba(255, 255, 255, 0.10); /* faint perimeter hairline */
+  --lg-rim-hi:          rgba(255, 255, 255, 0.55); /* bright specular top edge */
+  --lg-blur:            12px;             /* fallback frosted-glass blur (beta-1 = clearer) */
 
   /* --- text --- */
   --lg-text:            #f3f4f6;
@@ -72,16 +74,22 @@
   --lg-ease:            cubic-bezier(.2, .7, .2, 1);
   --lg-dur:             .25s;
 
-  /* --- specular rim shadow, reused everywhere glass appears --- */
-  --lg-specular:        inset 0 1px 0 var(--lg-rim-hi),
-                        inset 0 0 0 1px var(--lg-rim),
-                        0 12px 34px -14px rgba(0, 0, 0, 0.7);
+  /* --- directional specular rim, reused everywhere glass appears.
+         Bright catch on the TOP edge, faint on the left, dark shade on the
+         bottom (reads as glass thickness lit from above) — NOT a flat outline. */
+  --lg-specular:        inset 0 1px 0 0 var(--lg-rim-hi),
+                        inset 1px 0 0 0 rgba(255, 255, 255, 0.14),
+                        inset 0 -1px 0 0 rgba(0, 0, 0, 0.30),
+                        0 16px 40px -18px rgba(0, 0, 0, 0.78);
 
   /* --- LAYER 3: the Liquid Glass refraction filter (Chromium-only).
-         feTurbulence(fractalNoise) -> feGaussianBlur -> feDisplacementMap.
-         Embedded as a data: URI so it needs zero DOM/HTML access.
-         Encoding: " -> %22, % -> %25, trailing #lg is a literal fragment. --- */
-  --lg-refract: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><filter id=%22lg%22 x=%22-20%25%22 y=%22-20%25%22 width=%22140%25%22 height=%22140%25%22 color-interpolation-filters=%22sRGB%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.009%22 numOctaves=%222%22 seed=%2214%22 result=%22n%22/><feGaussianBlur in=%22n%22 stdDeviation=%221.2%22 result=%22nb%22/><feDisplacementMap in=%22SourceGraphic%22 in2=%22nb%22 scale=%2222%22 xChannelSelector=%22R%22 yChannelSelector=%22G%22/></filter></svg>#lg');
+         A baked, separable edge-concentrated displacement map (PNG data: URI:
+         neutral-gray center = zero distortion, ramping only at the rim) drives
+         THREE per-channel feDisplacementMap passes at different scales, blended
+         'screen' -> chromatic dispersion at the edges like real curved glass,
+         while the center stays crystal clear. Zero DOM access. Re-bake / retune
+         strength with the script; trailing #lg is a literal fragment. --- */
+  --lg-refract: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><filter id=%22lg%22 x=%22-10%25%22 y=%22-10%25%22 width=%22120%25%22 height=%22120%25%22 color-interpolation-filters=%22sRGB%22 primitiveUnits=%22objectBoundingBox%22><feImage href=%22data:image/png;base64,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%22 x=%220%22 y=%220%22 width=%221%22 height=%221%22 preserveAspectRatio=%22none%22 result=%22m%22/><feDisplacementMap in=%22SourceGraphic%22 in2=%22m%22 scale=%220.072%22 xChannelSelector=%22R%22 yChannelSelector=%22G%22 result=%22dr%22/><feDisplacementMap in=%22SourceGraphic%22 in2=%22m%22 scale=%220.062%22 xChannelSelector=%22R%22 yChannelSelector=%22G%22 result=%22dg%22/><feDisplacementMap in=%22SourceGraphic%22 in2=%22m%22 scale=%220.052%22 xChannelSelector=%22R%22 yChannelSelector=%22G%22 result=%22db%22/><feColorMatrix in=%22dr%22 type=%22matrix%22 values=%221 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0%22 result=%22cr%22/><feColorMatrix in=%22dg%22 type=%22matrix%22 values=%220 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0%22 result=%22cg%22/><feColorMatrix in=%22db%22 type=%22matrix%22 values=%220 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0%22 result=%22cb%22/><feBlend in=%22cr%22 in2=%22cg%22 mode=%22screen%22 result=%22crg%22/><feBlend in=%22crg%22 in2=%22cb%22 mode=%22screen%22/></filter></svg>#lg');
 }
 
 /* Lower blur on phones; the refraction @supports block uses a literal small blur. */
@@ -201,12 +209,14 @@ h1, h2, h3, h4 {
 .navMenuOption:not(.navMenuOption-selected):hover {
   background: var(--lg-film) !important;
 }
-.navMenuOption-selected,
-.navMenuOption-selected:hover,
+/* higher specificity so the crimson fill beats Jellyfin's own !important blue */
+.mainDrawer .navMenuOption.navMenuOption-selected,
+.navMenuOption.navMenuOption-selected,
+.mainDrawer .navMenuOption.navMenuOption-selected:hover,
 .MuiDrawer-paper .Mui-selected {
   background: var(--lg-accent-glass) !important;
   color: #fff !important;
-  box-shadow: inset 0 0 0 1px var(--lg-accent-border), 0 6px 18px -8px var(--lg-accent-glow);
+  box-shadow: inset 0 0 0 1px var(--lg-accent-border), 0 6px 18px -8px var(--lg-accent-glow) !important;
 }
 .navMenuOption-selected .navMenuOptionIcon,
 .navMenuOption-selected .material-icons { color: var(--lg-accent-bright) !important; }
@@ -540,20 +550,19 @@ progress::-webkit-progress-bar   { background-color: rgba(255, 255, 255, 0.12) !
    Non-Chromium engines ignore the url() and keep the frosted glass above.
    ===================================================================== */
 @supports (backdrop-filter: url('#x')) or (-webkit-backdrop-filter: url('#x')) {
-  .skinHeader-blurred:not(.osdHeader):not(.semiTransparent),
-  .skinHeader-withBackground:not(.osdHeader):not(.semiTransparent),
+  /* header is excluded from Layer-3 on purpose: it's too thin for a clear
+     center band, so displacement reads as a smear. It keeps frosted glass. */
   .mainDrawer,
   .touch-menu-la.drawer-open,
   .mainDrawer.drawer-open,
   .MuiDrawer-paper,
   .dialog:not(.actionSheet),
   .dialog.actionSheet,
-  .nowPlayingBar,
   .MuiMenu-paper,
   .MuiPopover-paper,
   #loginPage .padded-left.padded-right.padded-bottom-page {
-    -webkit-backdrop-filter: var(--lg-refract) blur(6px) saturate(1.7) brightness(1.06);
-    backdrop-filter: var(--lg-refract) blur(6px) saturate(1.7) brightness(1.06);
+    -webkit-backdrop-filter: var(--lg-refract) blur(2px) saturate(1.3) brightness(1.04);
+    backdrop-filter: var(--lg-refract) blur(2px) saturate(1.3) brightness(1.04);
   }
 }
 
@@ -589,4 +598,95 @@ body.layout-mobile .MuiPopover-paper {
     transition: none !important;
     transform: none !important;
   }
+}
+
+/* =====================================================================
+   17. ENHANCEMENTS — cards, living glass, rounded icons, micro-interactions
+   ===================================================================== */
+
+/* --- Cards: kill the boxy look, add a specular top edge + hover glare --- */
+/* neutralize Jellyfin's flat #242424 placeholder tile (the "box" behind art) */
+.cardBox:not(.visualCardBox) .cardPadder {
+  background: rgba(255, 255, 255, 0.03) !important;
+  box-shadow: none !important;
+}
+.cardBox { box-shadow: 0 6px 16px -10px rgba(0, 0, 0, 0.55); }
+.cardImageContainer,
+.cardImage { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16); }
+
+/* refined hover: lift + crimson bloom (no hard 1px outline ring) */
+.card:hover .cardBox,
+.cardBox:hover {
+  transform: translateY(-6px) scale(1.012);
+  box-shadow: 0 26px 50px -18px var(--lg-accent-glow),
+              inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+/* a diagonal light glare that sweeps across the poster once on hover */
+.cardImageContainer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.25) 46%, transparent 62%);
+  transform: translateX(-130%);
+  opacity: 0;
+}
+.card:hover .cardImageContainer::after { animation: lg-glare 0.85s var(--lg-ease); }
+@keyframes lg-glare {
+  0%   { transform: translateX(-130%); opacity: 0; }
+  35%  { opacity: 1; }
+  100% { transform: translateX(130%);  opacity: 0; }
+}
+
+/* --- Living glass: a slow 'breathing' crimson bloom behind everything --- */
+.backgroundContainer:not(.withBackdrop)::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(75% 55% at 50% -8%, rgba(229, 9, 20, 0.13), transparent 70%);
+  animation: lg-breathe 16s ease-in-out infinite;
+}
+@keyframes lg-breathe {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 1; }
+}
+
+/* --- Rounded icons (Material Symbols Rounded) + title polish --- */
+.material-icons {
+  font-family: 'Material Symbols Rounded' !important;
+  font-weight: normal !important;
+  font-variation-settings: 'FILL' 0, 'wght' 420, 'GRAD' 0, 'opsz' 24;
+}
+.sectionTitle, .sectionTitle-cards, .detailPageTitle, h1, h2, h3 {
+  letter-spacing: -0.01em;
+}
+
+/* --- Micro-interactions: glass surfaces rise/fade in; crimson focus glow --- */
+@keyframes lg-rise { from { opacity: 0; transform: translateY(10px) scale(0.985); } to { opacity: 1; transform: none; } }
+@keyframes lg-fade { from { opacity: 0; } to { opacity: 1; } }
+.dialog:not(.actionSheet),
+.formDialog,
+.MuiMenu-paper,
+.MuiPopover-paper,
+.toast { animation: lg-rise 0.26s var(--lg-ease); }
+.actionSheet { animation: lg-fade 0.2s var(--lg-ease); }   /* positioned -> fade only */
+
+.emby-button:focus-visible,
+.button-submit:focus-visible,
+.paper-icon-button-light:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 3px var(--lg-accent-weak), 0 0 18px -2px var(--lg-accent-glow) !important;
+}
+
+/* --- reduced-motion: disable every animation/transform added above --- */
+@media (prefers-reduced-motion: reduce) {
+  .cardImageContainer::after,
+  .backgroundContainer:not(.withBackdrop)::after,
+  .dialog, .actionSheet, .formDialog,
+  .MuiMenu-paper, .MuiPopover-paper, .toast {
+    animation: none !important;
+  }
+  .card:hover .cardBox, .cardBox:hover { transform: none !important; }
 }

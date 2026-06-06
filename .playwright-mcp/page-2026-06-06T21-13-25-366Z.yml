@@ -1,0 +1,26 @@
+- generic [active] [ref=e1]:
+  - img
+  - generic [ref=e2]:
+    - generic [ref=e3]: "O1: OBB · edge.12 · scale .060/.052/.044 · chromatic"
+    - generic [ref=e4]: panel 360x220
+    - generic [ref=e5]: tall 300x300
+  - generic [ref=e6]:
+    - generic [ref=e7]: "O2: OBB · edge.10 · scale .040/.035/.030 · subtle"
+    - generic [ref=e8]: panel 360x220
+    - generic [ref=e9]: tall 300x300
+  - generic [ref=e10]:
+    - generic [ref=e11]: "O3: OBB · edge.12 · scale .050/.044/.038 · medium"
+    - generic [ref=e12]: panel 360x220
+    - generic [ref=e13]: tall 300x300
+  - generic [ref=e14]:
+    - generic [ref=e15]: "O4: OBB · edge.14 · scale .072/.062/.052 · stronger"
+    - generic [ref=e16]: panel 360x220
+    - generic [ref=e17]: tall 300x300
+  - generic [ref=e18]:
+    - generic [ref=e19]: "O5: OBB · edge.12 · scale .050 · SINGLE (no cab)"
+    - generic [ref=e20]: panel 360x220
+    - generic [ref=e21]: tall 300x300
+  - generic [ref=e22]:
+    - generic [ref=e23]: "U: userSpace(old) · edge.10 · 10/9/8 (control, shows shift)"
+    - generic [ref=e24]: panel 360x220
+    - generic [ref=e25]: tall 300x300

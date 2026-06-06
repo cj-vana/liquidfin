@@ -16,11 +16,13 @@ Built and verified against **Jellyfin 10.11.x** (latest stable).
 
 > Captured on real Jellyfin 10.11 (the public demo, Chromium — refraction active).
 
-| Home | Nav drawer |
+| Home | Card hover — glare sweep + crimson bloom |
 |:---:|:---:|
-| ![Home](./preview/home.png) | ![Drawer](./preview/drawer.png) |
-| **Detail / hero** | **Action sheet** |
-| ![Detail](./preview/detail.png) | ![Action sheet](./preview/actionsheet.png) |
+| ![Home](./preview/home.png) | ![Card hover](./preview/home-hover.png) |
+| **Nav drawer — glass + crimson pill** | **Detail / hero** |
+| ![Drawer](./preview/drawer.png) | ![Detail](./preview/detail.png) |
+| **Action sheet (glass + refraction)** | **Rounded icons** |
+| ![Action sheet](./preview/actionsheet.png) | ![Icons](./preview/icons.png) |
 
 ---
 
@@ -30,7 +32,7 @@ A faithful take on the original (beta-1) Liquid Glass look — the most glassy v
 
 - **Translucent panels** — the header, nav drawer, dialogs, menus, now-playing bar and login card become strongly see-through glass; your library art shows through.
 - **Specular rims** — every glass surface gets the bright, light-catching edge highlight that defines Liquid Glass.
-- **Real refraction** — on Chromium-engine clients, the content behind the glass actually *bends* at the edges (an embedded SVG `feTurbulence`→`feDisplacementMap` filter). On other engines it cleanly falls back to frosted glass.
+- **Real refraction** — on Chromium-engine clients the content behind the glass actually *bends and lenses at the edges*, with a faint chromatic fringe at the rim — driven by a baked edge-concentrated displacement map plus three per-channel `feDisplacementMap` passes (the same approach as the best web recreations of Liquid Glass). The center stays crystal clear; only the rim refracts. On other engines it cleanly falls back to frosted glass.
 - **Crimson, the glass way** — the accent isn't flat red. Primary buttons are crimson *liquid glass*; the active nav item is a crimson glass pill; sliders, progress, indicators, focus rings and card-hover blooms all glow crimson.
 - **Floating, rounded geometry** and smooth hover lift on cards.
 
