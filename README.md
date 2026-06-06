@@ -1,8 +1,8 @@
 <div align="center">
 
-# Liquid Glass — a Jellyfin theme
+# 💧 Liquidfin
 
-**iOS 26 "Liquid Glass" (beta-1 character) for Jellyfin Web, with a crimson accent.**
+**Liquid Glass for Jellyfin** — the iOS 26 *beta-1* look (max translucency, real refraction, crimson accent), built for Jellyfin 10.11.
 
 Maximum translucency · bright specular edges · real light refraction on Chromium · floating glass panels
 
@@ -42,13 +42,13 @@ A faithful take on the original (beta-1) Liquid Glass look — the most glassy v
 
 ### Option A — `@import` from a CDN (recommended)
 
-Host this repo on GitHub, then paste **one line** into Dashboard → Branding → Custom CSS:
+Paste this **one line** into Dashboard → Branding → Custom CSS — it's already published (public repo + jsDelivr CDN):
 
 ```css
-@import url('https://cdn.jsdelivr.net/gh/<your-github-username>/jellyfin-theme@main/theme.css');
+@import url('https://cdn.jsdelivr.net/gh/cj-vana/liquidfin@main/theme.css');
 ```
 
-Replace `<your-github-username>`. Updating the repo updates the theme everywhere.
+Pushing to [the repo](https://github.com/cj-vana/liquidfin) updates the theme everywhere (jsDelivr caches `@main` — purge it or pin a tag, see below).
 
 > **Caching:** jsDelivr caches aggressively. For production, pin a tag instead of `@main` (e.g. `@v1.0.0`) and bump it when you publish, or [purge the jsDelivr cache](https://www.jsdelivr.com/tools/purge) after a push. Behind some reverse proxies (strict CSP) you may need to allow `cdn.jsdelivr.net` and `fonts.googleapis.com`/`fonts.gstatic.com`.
 
@@ -63,7 +63,7 @@ Open [`theme.css`](./theme.css), copy the entire contents, and paste it into Das
 Everything is driven by CSS variables in the `:root` block at the top of `theme.css`. The easiest way to tweak without editing the file: paste your overrides **after** the `@import` line in the Branding field. For example:
 
 ```css
-@import url('https://cdn.jsdelivr.net/gh/<your-github-username>/jellyfin-theme@main/theme.css');
+@import url('https://cdn.jsdelivr.net/gh/cj-vana/liquidfin@main/theme.css');
 
 :root {
   --lg-accent:        #7c5cfc;   /* switch crimson -> violet */
