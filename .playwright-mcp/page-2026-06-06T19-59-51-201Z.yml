@@ -1,0 +1,332 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - generic:
+      - generic [ref=e6]:
+        - link "Home" [ref=e8] [cursor=pointer]:
+          - /url: "#/home"
+          - generic [ref=e9]: 
+          - generic [ref=e10]: Home
+        - generic [ref=e11]:
+          - heading "Media" [level=3] [ref=e12]
+          - link "Movies" [ref=e13] [cursor=pointer]:
+            - /url: "#/movies?topParentId=f137a2dd21bbc1b99aa5c0f6bf02a805&collectionType=movies"
+            - generic [ref=e14]: 
+            - generic [ref=e15]: Movies
+          - link "Music" [ref=e16] [cursor=pointer]:
+            - /url: "#/music?topParentId=7e64e319657a9516ec78490da03edccb&collectionType=music"
+            - generic [ref=e17]: 
+            - generic [ref=e18]: Music
+          - link "Playlists" [ref=e19] [cursor=pointer]:
+            - /url: "#/list?parentId=accbf8ec18a80e054486551fbf1306b9&serverId=f0b3381645f04afb9a0e392e74b6a1b0"
+            - generic [ref=e20]: 
+            - generic [ref=e21]: Playlists
+          - link "Shows" [ref=e22] [cursor=pointer]:
+            - /url: "#/tv?topParentId=a656b907eb3a73532e40e44b968d0225&collectionType=tvshows"
+            - generic [ref=e23]: 
+            - generic [ref=e24]: Shows
+        - generic [ref=e25]:
+          - heading "User" [level=3] [ref=e26]
+          - link "Settings" [ref=e27] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e28]: 
+            - generic [ref=e29]: Settings
+          - link "Sign Out" [ref=e30] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e31]: 
+            - generic [ref=e32]: Sign Out
+      - generic [ref=e34]:
+        - generic [ref=e35]:
+          - button "Back" [ref=e1029] [cursor=pointer]:
+            - generic [ref=e1030]: 
+          - button "Home" [ref=e1031] [cursor=pointer]:
+            - generic [ref=e1032]: 
+          - button "Menu" [ref=e36] [cursor=pointer]:
+            - generic [ref=e37]: 
+          - heading [level=3] [ref=e38]: Display
+        - generic [ref=e39]:
+          - button "SyncPlay" [ref=e40] [cursor=pointer]:
+            - generic [ref=e41]: 
+          - text: 
+          - button "Cast to Device" [ref=e42] [cursor=pointer]:
+            - generic [ref=e43]: 
+          - button "Search" [ref=e44] [cursor=pointer]:
+            - generic [ref=e45]: 
+          - button "demo" [ref=e46] [cursor=pointer]
+    - generic:
+      - generic [ref=e1894]:
+        - heading "Localization" [level=2] [ref=e1895]
+        - generic [ref=e1896]:
+          - generic [ref=e1897]: Display language
+          - combobox "Display language" [ref=e1898]:
+            - option "Auto" [selected]
+            - option "Afrikaans"
+            - option "العربية"
+            - option "Беларуская"
+            - option "Български"
+            - option "বাংলা (বাংলাদেশ)"
+            - option "Català"
+            - option "Čeština"
+            - option "Cymraeg"
+            - option "Dansk"
+            - option "Deutsch"
+            - option "Ελληνικά"
+            - option "English (United Kingdom)"
+            - option "English"
+            - option "Esperanto"
+            - option "Español"
+            - option "Español americano"
+            - option "Español (Argentina)"
+            - option "Español (Dominicana)"
+            - option "Español (México)"
+            - option "Eesti"
+            - option "Euskara"
+            - option "فارسی"
+            - option "Suomi"
+            - option "Filipino"
+            - option "Français"
+            - option "Français (Canada)"
+            - option "Galego"
+            - option "Schwiizerdütsch"
+            - option "עִבְרִית"
+            - option "हिन्दी"
+            - option "Hrvatski"
+            - option "Magyar"
+            - option "Bahasa Indonesia"
+            - option "Íslenska"
+            - option "Italiano"
+            - option "日本語"
+            - option "Qazaqşa"
+            - option "한국어"
+            - option "Lietuvių"
+            - option "Latviešu"
+            - option "Македонски"
+            - option "മലയാളം"
+            - option "मराठी"
+            - option "Bahasa Melayu"
+            - option "Norsk bokmål"
+            - option "नेपाली"
+            - option "Nederlands"
+            - option "Norsk nynorsk"
+            - option "ਪੰਜਾਬੀ"
+            - option "Polski"
+            - option "Pirate"
+            - option "Português"
+            - option "Português (Brasil)"
+            - option "Português (Portugal)"
+            - option "Românește"
+            - option "Русский"
+            - option "Slovenčina"
+            - option "Slovenščina"
+            - option "Shqip"
+            - option "Српски"
+            - option "Svenska"
+            - option "தமிழ்"
+            - option "తెలుగు"
+            - option "ภาษาไทย"
+            - option "Türkçe"
+            - option "Українська"
+            - option "اُردُو"
+            - option "Tiếng Việt"
+            - option "汉语 (简化字)"
+            - option "漢語 (繁体字)"
+            - option "廣東話 (香港)"
+          - generic [ref=e1899]:
+            - generic [ref=e1900]: Translating Jellyfin is an ongoing project.
+            - link "Learn how you can contribute." [ref=e1902] [cursor=pointer]:
+              - /url: https://github.com/jellyfin/jellyfin
+          - generic:
+            - generic: 
+        - generic [ref=e1903]:
+          - generic [ref=e1904]: Date time locale
+          - combobox "Date time locale" [ref=e1905]:
+            - option "Auto" [selected]
+            - option "Afrikaans"
+            - option "العربية"
+            - option "Беларуская"
+            - option "Български"
+            - option "বাংলা (বাংলাদেশ)"
+            - option "Català"
+            - option "Čeština"
+            - option "Cymraeg"
+            - option "Dansk"
+            - option "Deutsch"
+            - option "Ελληνικά"
+            - option "English (United Kingdom)"
+            - option "English"
+            - option "Esperanto"
+            - option "Español"
+            - option "Español americano"
+            - option "Español (Argentina)"
+            - option "Español (Dominicana)"
+            - option "Español (México)"
+            - option "Eesti"
+            - option "فارسی"
+            - option "Suomi"
+            - option "Filipino"
+            - option "Français"
+            - option "Français (Canada)"
+            - option "Galego"
+            - option "Schwiizerdütsch"
+            - option "עִבְרִית"
+            - option "हिन्दी"
+            - option "Hrvatski"
+            - option "Magyar"
+            - option "Bahasa Indonesia"
+            - option "Íslenska"
+            - option "Italiano"
+            - option "日本語"
+            - option "Qazaqşa"
+            - option "한국어"
+            - option "Lietuvių"
+            - option "Latviešu"
+            - option "Македонски"
+            - option "മലയാളം"
+            - option "मराठी"
+            - option "Bahasa Melayu"
+            - option "Norsk bokmål"
+            - option "नेपाली"
+            - option "Nederlands"
+            - option "Norsk nynorsk"
+            - option "ਪੰਜਾਬੀ"
+            - option "Polski"
+            - option "Pirate"
+            - option "Português"
+            - option "Português (Brasil)"
+            - option "Português (Portugal)"
+            - option "Românește"
+            - option "Русский"
+            - option "Slovenčina"
+            - option "Slovenščina"
+            - option "Shqip"
+            - option "Српски"
+            - option "Svenska"
+            - option "தமிழ்"
+            - option "తెలుగు"
+            - option "ภาษาไทย"
+            - option "Türkçe"
+            - option "Українська"
+            - option "اُردُو"
+            - option "Tiếng Việt"
+            - option "汉语 (简化字)"
+            - option "漢語 (繁体字)"
+            - option "廣東話 (香港)"
+          - generic:
+            - generic: 
+        - heading "Display" [level=2] [ref=e1906]
+        - generic [ref=e1907]:
+          - generic [ref=e1908]: Display mode
+          - combobox "Display mode" [ref=e1909]:
+            - option "Auto" [selected]
+            - option "Desktop"
+            - option "Mobile"
+            - option "TV"
+            - option "Experimental"
+          - generic [ref=e1910]: Select the layout style you want for the interface.
+          - generic [ref=e1911]: Changes will take effect after manually reloading the web client.
+          - generic:
+            - generic: 
+        - generic [ref=e1912]:
+          - generic [ref=e1913]: Theme
+          - combobox "Theme" [ref=e1914]:
+            - option "Apple TV"
+            - option "Blue Radiance"
+            - option "Dark" [selected]
+            - option "Light"
+            - option "Purple Haze"
+            - option "WMC"
+          - generic:
+            - generic: 
+        - generic [ref=e1915]:
+          - generic [ref=e1916] [cursor=pointer]:
+            - checkbox "Disable server-provided custom CSS code" [ref=e1917]
+            - generic [ref=e1918]: Disable server-provided custom CSS code
+            - generic [ref=e1919]: 
+          - generic [ref=e1920]: Disable custom CSS code for theming/branding provided from the server.
+        - generic [ref=e1921]:
+          - generic [ref=e1922]: Custom CSS code
+          - textbox "Custom CSS code" [ref=e1923]
+          - generic [ref=e1924]: Custom CSS code for styling which applies to this client only. You may want to disable server custom CSS code.
+        - text: 
+        - generic [ref=e1925]:
+          - generic [ref=e1926]: Screensaver
+          - combobox "Screensaver" [ref=e1927]:
+            - option "None" [selected]
+            - option "Logo Screensaver"
+            - option "Backdrop Screensaver"
+          - generic:
+            - generic: 
+        - generic [ref=e1928]:
+          - generic [ref=e1929]: Screensaver Time
+          - spinbutton "Screensaver Time" [ref=e1930]: "180"
+          - generic [ref=e1931]: The amount of time in seconds of inactivity required to start the screensaver.
+        - generic [ref=e1932]:
+          - generic [ref=e1933]: Backdrop Screensaver Interval
+          - spinbutton "Backdrop Screensaver Interval" [ref=e1934]: "5"
+          - generic [ref=e1935]: The time in seconds between different backdrops when using the backdrop screensaver.
+        - generic [ref=e1936]:
+          - generic [ref=e1937] [cursor=pointer]:
+            - checkbox "Faster animations" [checked] [ref=e1938]
+            - generic [ref=e1939]: Faster animations
+            - generic [ref=e1941]: 
+          - generic [ref=e1942]: Use faster animations and transitions.
+        - generic [ref=e1943]:
+          - generic [ref=e1944] [cursor=pointer]:
+            - checkbox "Enable blurred placeholders for images" [checked] [ref=e1945]
+            - generic [ref=e1946]: Enable blurred placeholders for images
+            - generic [ref=e1948]: 
+          - generic [ref=e1949]: Images that are still being loaded will be displayed with a unique placeholder.
+        - heading "Libraries" [level=2] [ref=e1950]
+        - generic [ref=e1951]:
+          - generic [ref=e1952]: Library page size
+          - spinbutton "Library page size" [ref=e1953]: "100"
+          - generic [ref=e1954]: Set the amount of items to show on a library page. Setting a value of 0 will disable pagination. Please note that setting this to 0 or any value greater than 100 may lead to bugs and reduced performance.
+        - generic [ref=e1955]:
+          - generic [ref=e1956] [cursor=pointer]:
+            - checkbox "Backdrops" [ref=e1957]
+            - generic [ref=e1958]: Backdrops
+            - generic [ref=e1959]: 
+          - generic [ref=e1960]: Display the backdrops in the background of some pages while browsing the library.
+        - generic [ref=e1961]:
+          - generic [ref=e1962] [cursor=pointer]:
+            - checkbox "Theme songs" [ref=e1963]
+            - generic [ref=e1964]: Theme songs
+            - generic [ref=e1965]: 
+          - generic [ref=e1966]: Play the theme songs in background while browsing the library.
+        - generic [ref=e1967]:
+          - generic [ref=e1968] [cursor=pointer]:
+            - checkbox "Theme videos" [ref=e1969]
+            - generic [ref=e1970]: Theme videos
+            - generic [ref=e1971]: 
+          - generic [ref=e1972]: Play theme videos in the background while browsing the library.
+        - generic [ref=e1973]:
+          - generic [ref=e1974] [cursor=pointer]:
+            - checkbox "Display missing episodes within seasons" [checked] [ref=e1975]
+            - generic [ref=e1976]: Display missing episodes within seasons
+            - generic [ref=e1978]: 
+          - generic [ref=e1979]: This must also be enabled for TV libraries in the server configuration.
+        - heading "Next Up" [level=2] [ref=e1980]
+        - generic [ref=e1981]:
+          - generic [ref=e1982]: Max days in 'Next Up'
+          - spinbutton "Max days in 'Next Up'" [ref=e1983]: "365"
+          - generic [ref=e1984]: Set the maximum amount of days a show should stay in the 'Next Up' list without watching it.
+        - generic [ref=e1985]:
+          - generic [ref=e1986] [cursor=pointer]:
+            - checkbox "Enable Rewatching in Next Up" [ref=e1987]
+            - generic [ref=e1988]: Enable Rewatching in Next Up
+            - generic [ref=e1989]: 
+          - generic [ref=e1990]: Enable showing already watched episodes in 'Next Up' sections.
+        - generic [ref=e1991]:
+          - generic [ref=e1992] [cursor=pointer]:
+            - checkbox "Use episode images in 'Next Up' and 'Continue Watching' sections" [checked] [ref=e1993]
+            - generic [ref=e1994]: Use episode images in 'Next Up' and 'Continue Watching' sections
+            - generic [ref=e1996]: 
+          - generic [ref=e1997]: "'Next Up' and 'Continue Watching' sections will use episode images as thumbnails instead of the primary thumbnail of the show."
+        - heading "Item Details" [level=2] [ref=e1998]
+        - generic [ref=e1999]:
+          - generic [ref=e2000] [cursor=pointer]:
+            - checkbox "Details Banner" [checked] [ref=e2001]
+            - generic [ref=e2002]: Details Banner
+            - generic [ref=e2004]: 
+          - generic [ref=e2005]: Display a banner image at the top of the item details page.
+        - button "Save" [ref=e2006] [cursor=pointer]
+      - text:                                                                                                                                                                       

@@ -1,0 +1,592 @@
+/* =====================================================================
+   LIQUID GLASS — a Jellyfin theme
+   iOS 26 "Liquid Glass" (beta-1 character) for Jellyfin Web · crimson accent
+   ---------------------------------------------------------------------
+   Target:  Jellyfin 10.11.x (verified against jellyfin-web release-10.11.z)
+   Apply:   Dashboard → Branding → Custom CSS  (paste, or @import this file)
+   Engines: Real edge-refraction on Chromium/Blink clients; everywhere else
+            degrades to frosted glass automatically. WebKit/iOS get -webkit-.
+
+   HOW THE GLASS WORKS (3 layers, each degrades on its own):
+     1. translucent tint + blur + saturate ........ every engine
+     2. specular rim (inset highlight + border) .... every engine
+     3. SVG feTurbulence refraction (data: URI) ..... Chromium only, opt-in
+        via @supports; non-Chromium silently keeps layers 1–2.
+
+   TUNING — edit the tokens in :root below:
+     --lg-accent .............. brand color (crimson by default)
+     --lg-blur ................ frosted-glass blur strength (fallback path)
+     --lg-glass / --lg-tint ... how see-through the panels are (beta-1 = low)
+     --lg-scrim ............... text legibility scrims (0 = full beta-1 purity)
+     --lg-radius-* ............ corner roundness
+
+   LITE MODE (low-end / smart-TV): blur + refraction are GPU-heavy. This theme
+   already drops them under body.layout-tv and lowers blur on body.layout-mobile.
+   To force-disable refraction everywhere (keep frosted glass), add AFTER the import:
+     :root { --lg-refract: blur(0); }   /* identity filter — keeps the blur valid */
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* =====================================================================
+   1. TOKENS
+   ===================================================================== */
+:root {
+  color-scheme: dark;
+
+  /* --- brand / accent (crimson, the Liquid-Glass way) --- */
+  --lg-accent:          #e50914;          /* primary crimson */
+  --lg-accent-bright:   #ff2d42;          /* hover / focus */
+  --lg-accent-glow:     rgba(229, 9, 20, 0.45);
+  --lg-accent-weak:     rgba(229, 9, 20, 0.18);   /* hover wash on icon buttons */
+  --lg-accent-border:   rgba(255, 80, 95, 0.55);
+  --lg-accent-glass:    rgba(229, 9, 20, 0.32);   /* crimson translucent fill */
+  --lg-transcode:       #eb7e25;          /* leave transcode progress orange */
+
+  /* --- glass surfaces (low alpha = strongly see-through, beta-1 feel) --- */
+  --lg-tint:            rgba(24, 26, 34, 0.42);    /* default panel glass */
+  --lg-tint-strong:     rgba(16, 17, 22, 0.62);    /* dialogs / drawer */
+  --lg-film:            rgba(255, 255, 255, 0.06); /* faint top film */
+  --lg-rim:             rgba(255, 255, 255, 0.12); /* hairline border */
+  --lg-rim-hi:          rgba(255, 255, 255, 0.28); /* specular top highlight */
+  --lg-blur:            14px;             /* fallback frosted-glass blur (beta-1 = clearer) */
+
+  /* --- text --- */
+  --lg-text:            #f3f4f6;
+  --lg-text-dim:        rgba(243, 244, 246, 0.62);
+  --lg-font:            'Plus Jakarta Sans', 'Noto Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+
+  /* --- page background (deep near-black + crimson ambient bloom) --- */
+  --lg-bg:
+      radial-gradient(120% 120% at 0% 0%,  rgba(229, 9, 20, 0.12), transparent 42%),
+      radial-gradient(120% 120% at 100% 100%, rgba(229, 9, 20, 0.07), transparent 46%),
+      linear-gradient(160deg, #0b0c11 0%, #07070a 60%, #050507 100%);
+  --lg-backdrop-dim:    0.52;             /* how much library backdrops are dimmed */
+  --lg-scrim:           0.62;             /* text scrim strength (0 = beta-1 pure) */
+
+  /* --- geometry / motion --- */
+  --lg-radius-lg:       22px;
+  --lg-radius-md:       15px;
+  --lg-radius-sm:       10px;
+  --lg-radius-pill:     999px;
+  --lg-ease:            cubic-bezier(.2, .7, .2, 1);
+  --lg-dur:             .25s;
+
+  /* --- specular rim shadow, reused everywhere glass appears --- */
+  --lg-specular:        inset 0 1px 0 var(--lg-rim-hi),
+                        inset 0 0 0 1px var(--lg-rim),
+                        0 12px 34px -14px rgba(0, 0, 0, 0.7);
+
+  /* --- LAYER 3: the Liquid Glass refraction filter (Chromium-only).
+         feTurbulence(fractalNoise) -> feGaussianBlur -> feDisplacementMap.
+         Embedded as a data: URI so it needs zero DOM/HTML access.
+         Encoding: " -> %22, % -> %25, trailing #lg is a literal fragment. --- */
+  --lg-refract: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><filter id=%22lg%22 x=%22-20%25%22 y=%22-20%25%22 width=%22140%25%22 height=%22140%25%22 color-interpolation-filters=%22sRGB%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.009%22 numOctaves=%222%22 seed=%2214%22 result=%22n%22/><feGaussianBlur in=%22n%22 stdDeviation=%221.2%22 result=%22nb%22/><feDisplacementMap in=%22SourceGraphic%22 in2=%22nb%22 scale=%2222%22 xChannelSelector=%22R%22 yChannelSelector=%22G%22/></filter></svg>#lg');
+}
+
+/* Lower blur on phones; the refraction @supports block uses a literal small blur. */
+body.layout-mobile { --lg-blur: 11px; }
+
+/* =====================================================================
+   2. GLOBAL — background, type, scrollbars, selection
+   ===================================================================== */
+
+/* Page background lives on .backgroundContainer (body is transparent!important). */
+html { background-color: #07070a; }
+.backgroundContainer:not(.withBackdrop) { background: var(--lg-bg) !important; }
+
+/* When a library backdrop image is shown, let it bleed through (just dimmed) —
+   don't paint the opaque gradient over the real artwork layer. */
+.backgroundContainer.withBackdrop {
+  background-image: none !important;
+  background-color: rgba(5, 5, 7, var(--lg-backdrop-dim)) !important;
+}
+
+/* Typography */
+body,
+.mainAnimatedPages,
+.dialog, .actionSheet,
+button, input, textarea, select,
+.emby-button, .cardText, .sectionTitle,
+h1, h2, h3, h4 {
+  font-family: var(--lg-font) !important;
+}
+.skinHeader, html { color: var(--lg-text); }
+
+::selection { background: var(--lg-accent); color: #fff; }
+
+/* Scrollbars (thumb color is global; size is gated by a layout ancestor). */
+* { scrollbar-width: thin; scrollbar-color: var(--lg-accent-glow) transparent; }
+::-webkit-scrollbar-thumb:vertical,
+::-webkit-scrollbar-thumb:horizontal {
+  background: rgba(229, 9, 20, 0.5);
+  border-radius: var(--lg-radius-pill);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--lg-accent); }
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-track-piece { background-color: transparent; }
+.layout-desktop ::-webkit-scrollbar,
+.layout-tv ::-webkit-scrollbar { width: 0.55em; height: 0.55em; }
+
+/* =====================================================================
+   3. HEADER  (solid glass / transparent hero / OSD are different states)
+   ===================================================================== */
+
+/* SOLID header on home & library pages -> frosted glass + specular rim. */
+.skinHeader-blurred:not(.osdHeader):not(.semiTransparent),
+.skinHeader-withBackground:not(.osdHeader):not(.semiTransparent) {
+  background: var(--lg-tint) !important;
+  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(1.6) brightness(1.05);
+  backdrop-filter: blur(var(--lg-blur)) saturate(1.6) brightness(1.05);
+  box-shadow: inset 0 1px 0 var(--lg-rim-hi),
+              inset 0 -1px 0 var(--lg-rim),
+              0 8px 30px -18px rgba(0, 0, 0, 0.9);
+}
+
+/* TRANSPARENT header floating over a detail backdrop -> keep it clear. */
+.skinHeader.semiTransparent {
+  background: transparent !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  border-bottom: 0 !important;
+}
+.skinHeader.semiTransparent .headerButton,
+.skinHeader.semiTransparent .pageTitle {
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.65);
+}
+
+/* Header icon buttons */
+.headerButton .material-icons { transition: color var(--lg-dur) var(--lg-ease); }
+.headerButton:hover .material-icons,
+.headerButton:focus .material-icons { color: var(--lg-accent-bright); }
+
+/* Section tabs */
+.emby-tab-button { transition: color var(--lg-dur) var(--lg-ease); }
+/* Active legacy tab gets a crimson underline (the "slider" is the row container,
+   NOT an indicator — never paint it). Keep the real MUI indicator crimson. */
+.emby-tab-button-active {
+  color: #fff !important;
+  box-shadow: inset 0 -2px 0 var(--lg-accent);
+}
+.emby-tab-button:hover,
+.emby-tab-button:focus,
+.emby-tab-button.show-focus:focus { color: var(--lg-accent-bright) !important; }
+.MuiTabs-indicator {
+  background: var(--lg-accent) !important;
+  box-shadow: 0 0 12px var(--lg-accent-glow);
+  border-radius: var(--lg-radius-pill);
+}
+
+/* =====================================================================
+   4. NAV DRAWER  (legacy .mainDrawer + MUI .MuiDrawer-paper)
+   ===================================================================== */
+.mainDrawer,
+.touch-menu-la.drawer-open,
+.MuiDrawer-paper {
+  background: var(--lg-tint-strong) !important;
+  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(1.5);
+  backdrop-filter: blur(var(--lg-blur)) saturate(1.5);
+  border-right: 1px solid var(--lg-rim);
+  box-shadow: inset 0 1px 0 var(--lg-rim-hi), 8px 0 40px -20px rgba(0, 0, 0, 0.8);
+}
+.tmla-mask.backdrop { background: rgba(0, 0, 0, 0.4) !important; }
+
+/* Drawer items become floating pills; selected item is crimson. */
+.navMenuOption,
+.MuiDrawer-paper .MuiListItemButton-root {
+  border-radius: var(--lg-radius-md) !important;
+  margin: 2px 8px !important;
+  transition: background var(--lg-dur) var(--lg-ease), box-shadow var(--lg-dur) var(--lg-ease);
+}
+.navMenuOption:not(.navMenuOption-selected):hover {
+  background: var(--lg-film) !important;
+}
+.navMenuOption-selected,
+.navMenuOption-selected:hover,
+.MuiDrawer-paper .Mui-selected {
+  background: var(--lg-accent-glass) !important;
+  color: #fff !important;
+  box-shadow: inset 0 0 0 1px var(--lg-accent-border), 0 6px 18px -8px var(--lg-accent-glow);
+}
+.navMenuOption-selected .navMenuOptionIcon,
+.navMenuOption-selected .material-icons { color: var(--lg-accent-bright) !important; }
+.sidebarHeader { color: var(--lg-text-dim); }
+
+/* =====================================================================
+   5. CARDS  (rounded glass, hover lift + crimson bloom)
+   ===================================================================== */
+.cardImageContainer,
+.cardImage,
+.cardScalable,
+.cardOverlayContainer { border-radius: var(--lg-radius-md); }
+
+.cardBox {
+  border-radius: var(--lg-radius-md);
+  transition: transform var(--lg-dur) var(--lg-ease), box-shadow var(--lg-dur) var(--lg-ease);
+}
+.card:hover .cardBox,
+.cardBox:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px -14px var(--lg-accent-glow),
+              0 0 0 1px var(--lg-accent-border);
+}
+
+/* Hover overlay: glass scrim + crimson play affordance */
+.cardOverlayContainer {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.12)) !important;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+.cardOverlayButtonIcon,
+.cardOverlayFab-primary {
+  color: #fff !important;
+  transition: color var(--lg-dur) var(--lg-ease), transform var(--lg-dur) var(--lg-ease);
+}
+.cardOverlayButton:hover .cardOverlayButtonIcon,
+.cardOverlayFab-primary:hover { color: var(--lg-accent-bright) !important; transform: scale(1.08); }
+
+.cardText { color: var(--lg-text); }
+.cardText-secondary,
+.cardText.cardText-secondary { color: var(--lg-text-dim); }
+.cardText-first { font-weight: 600; }
+
+/* Watched check / unwatched count badges -> crimson (theme paints them blue) */
+.playedIndicator,
+.countIndicator {
+  background: var(--lg-accent) !important;
+  box-shadow: 0 0 10px var(--lg-accent-glow);
+}
+
+/* Resume bar on cards */
+.itemProgressBarForeground { background: var(--lg-accent) !important; }
+.itemProgressBar:not(.transcodingProgress) {
+  background: rgba(255, 255, 255, 0.18) !important;
+  border-radius: var(--lg-radius-pill);
+  overflow: hidden;
+}
+
+/* =====================================================================
+   6. HOME ROWS / SECTION TITLES
+   ===================================================================== */
+.sectionTitle-cards,
+.sectionTitleContainer > .sectionTitle {
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+.emby-scrollbuttons-button .material-icons { transition: color var(--lg-dur) var(--lg-ease); }
+.emby-scrollbuttons-button:hover .material-icons { color: var(--lg-accent-bright); }
+
+/* =====================================================================
+   7. ITEM DETAIL / HERO
+   ===================================================================== */
+
+/* Add the missing gradient scrim under the hero backdrop for legibility. */
+.itemBackdrop { position: relative; }
+.itemBackdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, transparent 30%, rgba(7, 7, 10, var(--lg-scrim)) 96%),
+    linear-gradient(to top, rgba(7, 7, 10, 0.55), transparent 55%);
+}
+
+/* Detail action buttons: emphasize Play in crimson */
+.detailButton .detailButton-icon { transition: color var(--lg-dur) var(--lg-ease); }
+.detailButton:hover .detailButton-icon { color: var(--lg-accent-bright) !important; }
+.btnPlay .detailButton-icon,
+.btnResume .detailButton-icon { color: var(--lg-accent) !important; }
+.btnPlay:hover .detailButton-icon { color: var(--lg-accent-bright) !important; }
+.itemDetailImage { border-radius: var(--lg-radius-md); }
+
+/* =====================================================================
+   8. BUTTONS  (primary = crimson liquid glass; neutral = clear glass)
+   ===================================================================== */
+.emby-button { transition: background var(--lg-dur) var(--lg-ease), box-shadow var(--lg-dur) var(--lg-ease), color var(--lg-dur) var(--lg-ease); }
+
+/* Primary / submit -> crimson translucent glass with specular rim + glow.
+   Submit buttons carry .raised AND .button-submit; MUI primaries carry
+   .MuiButton-root AND .MuiButton-containedPrimary — match the compound so the
+   neutral rule below can't out-order us. */
+.raised.button-submit, .button-submit,
+.MuiButton-root.MuiButton-containedPrimary {
+  background: var(--lg-accent-glass) !important;
+  color: #fff !important;
+  border-radius: var(--lg-radius-md) !important;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+  -webkit-backdrop-filter: blur(10px) saturate(1.4);
+  backdrop-filter: blur(10px) saturate(1.4);
+  box-shadow: inset 0 1px 0 var(--lg-rim-hi),
+              inset 0 0 0 1px var(--lg-accent-border),
+              0 8px 22px -10px var(--lg-accent-glow);
+}
+.raised.button-submit:hover, .button-submit:hover,
+.button-submit:focus,
+.MuiButton-root.MuiButton-containedPrimary:hover {
+  background: rgba(229, 9, 20, 0.46) !important;
+  box-shadow: inset 0 1px 0 var(--lg-rim-hi),
+              inset 0 0 0 1px var(--lg-accent-border),
+              0 10px 30px -8px var(--lg-accent-glow);
+}
+
+/* Neutral raised / fab / contained -> clear glass (primary + cancel excluded;
+   MUI text/outlined buttons left transparent so hierarchy survives). */
+.raised:not(.button-submit):not(.cancel), .fab,
+.MuiButton-contained:not(.MuiButton-containedPrimary) {
+  background: var(--lg-tint) !important;
+  border-radius: var(--lg-radius-md) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(1.4);
+  backdrop-filter: blur(10px) saturate(1.4);
+  box-shadow: var(--lg-specular);
+}
+.raised:not(.button-submit):not(.cancel):hover, .fab:hover,
+.MuiButton-contained:not(.MuiButton-containedPrimary):hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Cancel keeps a clear-glass crimson edge (no harsh flat red) */
+.cancel {
+  background: var(--lg-accent-glass) !important;
+  border-radius: var(--lg-radius-md) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(1.4);
+  backdrop-filter: blur(10px) saturate(1.4);
+  box-shadow: inset 0 1px 0 var(--lg-rim-hi),
+              inset 0 0 0 1px var(--lg-accent-border);
+}
+
+/* Icon buttons: crimson hover wash (theme uses jellyfin-blue) */
+.paper-icon-button-light:hover,
+.paper-icon-button-light:focus,
+.MuiIconButton-root:hover {
+  color: var(--lg-accent-bright) !important;
+  background: var(--lg-accent-weak) !important;
+}
+
+/* =====================================================================
+   9. INPUTS / SELECTS / CHECKBOX / TOGGLE
+   ===================================================================== */
+.emby-input,
+.emby-textarea,
+.emby-select-withcolor {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-radius: var(--lg-radius-sm) !important;
+  border: 1px solid var(--lg-rim) !important;
+  color: var(--lg-text) !important;
+  transition: border-color var(--lg-dur) var(--lg-ease), box-shadow var(--lg-dur) var(--lg-ease);
+}
+.emby-input:focus,
+.emby-textarea:focus,
+.emby-select-withcolor:focus {
+  border-color: var(--lg-accent) !important;
+  box-shadow: 0 0 0 3px var(--lg-accent-weak) !important;
+  outline: none !important;
+}
+
+/* Checkbox checked -> crimson (adjacent-sibling chain) */
+.emby-checkbox:checked + span + .checkboxOutline {
+  border-color: var(--lg-accent) !important;
+  background-color: var(--lg-accent) !important;
+}
+
+/* Toggle switch checked -> crimson (colors are hard-coded; needs the long chain) */
+.mdl-switch__input:checked + .mdl-switch__label + .mdl-switch__trackContainer > .mdl-switch__thumb {
+  background: var(--lg-accent) !important;
+}
+.mdl-switch__input:checked + .mdl-switch__label + .mdl-switch__trackContainer > .mdl-switch__track {
+  background: var(--lg-accent-weak) !important;
+}
+
+/* MUI form controls (dashboard / experimental layout) */
+.MuiCheckbox-root.Mui-checked,
+.MuiRadio-root.Mui-checked { color: var(--lg-accent) !important; }
+.MuiSwitch-switchBase.Mui-checked { color: var(--lg-accent) !important; }
+.MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track { background-color: var(--lg-accent) !important; }
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline { border-color: var(--lg-accent) !important; }
+
+/* =====================================================================
+   10. DIALOGS / MENUS / ACTION SHEETS  (glass; action sheets ARE dialogs)
+   ===================================================================== */
+.dialog:not(.actionSheet),
+.formDialog {
+  background: var(--lg-tint-strong) !important;
+  border-radius: var(--lg-radius-lg) !important;
+  box-shadow: var(--lg-specular);
+}
+.dialog:not(.actionSheet) {
+  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(1.5);
+  backdrop-filter: blur(var(--lg-blur)) saturate(1.5);
+}
+.formDialogHeader:not(.formDialogHeader-clear),
+.formDialogFooter:not(.formDialogFooter-clear) {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border-color: var(--lg-rim) !important;
+}
+.dialogBackdrop.dialogBackdropOpened { opacity: 0.6 !important; }
+
+/* Action sheets & context menus */
+/* action sheets are dialogs; use .dialog.actionSheet (0,2,0) so Jellyfin's
+   lazily-loaded route chunks (.actionSheet{border-radius:.1em!important}) can't win. */
+.dialog.actionSheet {
+  background: var(--lg-tint-strong) !important;
+  border-radius: var(--lg-radius-lg) !important;
+  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(1.5);
+  backdrop-filter: blur(var(--lg-blur)) saturate(1.5);
+  box-shadow: var(--lg-specular);
+}
+.listItem:hover { background: var(--lg-film) !important; }
+.listItem:focus { background: var(--lg-accent-weak) !important; }
+/* selected option in a menu (the one with a check) -> crimson wash */
+.actionSheetMenuItem:has(.listItemIcon.check) { background: var(--lg-accent-weak) !important; }
+.actionSheetMenuItem:has(.listItemIcon.check) .listItemIcon.check { color: var(--lg-accent-bright) !important; }
+
+/* MUI surfaces (dashboard / newer pages) */
+.MuiPaper-elevation,
+.MuiMenu-paper,
+.MuiPopover-paper {
+  background-color: var(--lg-tint-strong) !important;
+  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(1.5);
+  backdrop-filter: blur(var(--lg-blur)) saturate(1.5);
+  border: 1px solid var(--lg-rim);
+  border-radius: var(--lg-radius-md) !important;
+  box-shadow: var(--lg-specular);
+}
+/* Match menu/popover roundness to the legacy action sheets */
+.MuiMenu-paper,
+.MuiPopover-paper { border-radius: var(--lg-radius-lg) !important; }
+.MuiMenuItem-root.Mui-selected,
+.MuiMenuItem-root:hover { background-color: var(--lg-accent-weak) !important; }
+
+/* =====================================================================
+   11. SLIDERS & PROGRESS  (recolor jellyfin-blue -> crimson everywhere)
+   ===================================================================== */
+.mdl-slider { color: var(--lg-accent) !important; }
+
+/* played fill — override background-color ONLY (width is set inline by JS) */
+.mdl-slider-background-lower { background-color: var(--lg-accent) !important; }
+.mdl-slider-background-upper { background: rgba(255, 255, 255, 0.4) !important; }
+
+/* knob, per engine */
+.mdl-slider::-webkit-slider-thumb { background: var(--lg-accent) !important; box-shadow: 0 0 10px var(--lg-accent-glow); }
+.mdl-slider::-moz-range-thumb     { background: var(--lg-accent) !important; }
+.mdl-slider::-ms-thumb            { background: var(--lg-accent) !important; }
+
+/* chapter markers + scrub bubble */
+.sliderMarker.watched { background-color: var(--lg-accent) !important; }
+.sliderBubble {
+  background: var(--lg-tint-strong) !important;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--lg-rim);
+  border-radius: var(--lg-radius-sm) !important;
+  box-shadow: var(--lg-specular);
+}
+
+/* generic + dashboard progress fills */
+.playbackProgress > div,
+.itemLinearProgress .itemProgressBarForeground { background: var(--lg-accent) !important; }
+.transcodingProgress > div { background: var(--lg-transcode) !important; }
+
+/* native <progress> (set inline by JS -> needs !important) */
+progress { color: var(--lg-accent) !important; }
+progress::-webkit-progress-value { background-color: var(--lg-accent) !important; }
+progress::-moz-progress-bar      { background-color: var(--lg-accent) !important; }
+progress::-webkit-progress-bar   { background-color: rgba(255, 255, 255, 0.12) !important; }
+
+/* =====================================================================
+   12. NOW-PLAYING BAR  (audio) — frosted glass floating bar
+   ===================================================================== */
+.nowPlayingBar {
+  background: var(--lg-tint) !important;
+  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(1.6) brightness(1.05);
+  backdrop-filter: blur(var(--lg-blur)) saturate(1.6) brightness(1.05);
+  border-top: 1px solid var(--lg-rim);
+  box-shadow: inset 0 1px 0 var(--lg-rim-hi), 0 -10px 40px -20px rgba(0, 0, 0, 0.9);
+}
+.nowPlayingBar .mediaButton:hover .material-icons { color: var(--lg-accent-bright) !important; }
+
+/* =====================================================================
+   13. LOGIN / SELECT-USER  (glass card over the backdrop)
+   ===================================================================== */
+#loginPage { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+#loginPage .padded-left.padded-right.padded-bottom-page,
+#loginPage .readOnlyContent {
+  background: var(--lg-tint-strong) !important;
+  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(1.5);
+  backdrop-filter: blur(var(--lg-blur)) saturate(1.5);
+  border: 1px solid var(--lg-rim);
+  border-radius: var(--lg-radius-lg) !important;
+  box-shadow: var(--lg-specular);
+  padding: 1.6em !important;
+  max-width: 30em;
+}
+#divUsers .card .cardImageContainer { box-shadow: inset 0 0 0 1px var(--lg-rim); }
+
+/* =====================================================================
+   14. MISC — toasts
+   ===================================================================== */
+.toast {
+  background: var(--lg-tint-strong) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(1.5);
+  backdrop-filter: blur(14px) saturate(1.5);
+  border: 1px solid var(--lg-rim);
+  border-radius: var(--lg-radius-md) !important;
+  box-shadow: var(--lg-specular);
+}
+
+/* =====================================================================
+   15. LAYER 3 — LIQUID GLASS REFRACTION  (Chromium only, fixed surfaces)
+   Only a handful of small, fixed panels get the real lensing (perf).
+   Non-Chromium engines ignore the url() and keep the frosted glass above.
+   ===================================================================== */
+@supports (backdrop-filter: url('#x')) or (-webkit-backdrop-filter: url('#x')) {
+  .skinHeader-blurred:not(.osdHeader):not(.semiTransparent),
+  .skinHeader-withBackground:not(.osdHeader):not(.semiTransparent),
+  .mainDrawer,
+  .touch-menu-la.drawer-open,
+  .mainDrawer.drawer-open,
+  .MuiDrawer-paper,
+  .dialog:not(.actionSheet),
+  .dialog.actionSheet,
+  .nowPlayingBar,
+  .MuiMenu-paper,
+  .MuiPopover-paper,
+  #loginPage .padded-left.padded-right.padded-bottom-page {
+    -webkit-backdrop-filter: var(--lg-refract) blur(6px) saturate(1.7) brightness(1.06);
+    backdrop-filter: var(--lg-refract) blur(6px) saturate(1.7) brightness(1.06);
+  }
+}
+
+/* =====================================================================
+   16. PERFORMANCE / ACCESSIBILITY
+   ===================================================================== */
+
+/* Smart-TV + low-end phones: drop the SVG refraction + heavy blur for framerate. */
+body.layout-tv .skinHeader-blurred:not(.osdHeader):not(.semiTransparent),
+body.layout-tv .mainDrawer,
+body.layout-tv .touch-menu-la.drawer-open,
+body.layout-tv .MuiDrawer-paper,
+body.layout-tv .dialog,
+body.layout-tv .nowPlayingBar,
+body.layout-tv .MuiMenu-paper,
+body.layout-tv .MuiPopover-paper,
+body.layout-mobile .skinHeader-blurred:not(.osdHeader):not(.semiTransparent),
+body.layout-mobile .mainDrawer,
+body.layout-mobile .touch-menu-la.drawer-open,
+body.layout-mobile .MuiDrawer-paper,
+body.layout-mobile .dialog,
+body.layout-mobile .nowPlayingBar,
+body.layout-mobile .MuiMenu-paper,
+body.layout-mobile .MuiPopover-paper {
+  -webkit-backdrop-filter: blur(9px) saturate(1.4) !important;
+  backdrop-filter: blur(9px) saturate(1.4) !important;
+}
+
+/* Respect reduced-motion: no hover lifts / scales. */
+@media (prefers-reduced-motion: reduce) {
+  .cardBox, .card:hover .cardBox, .cardBox:hover,
+  .cardOverlayFab-primary, .emby-button {
+    transition: none !important;
+    transform: none !important;
+  }
+}
