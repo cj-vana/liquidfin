@@ -677,12 +677,13 @@ body.layout-mobile #loginPage .padded-left.padded-right.padded-bottom-page {
 .cardImageContainer,
 .cardImage { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16); }
 
-/* refined hover: lift + crimson bloom (no hard 1px outline ring) */
+/* refined hover: bigger lift + scale, crimson bloom + a thin crimson rim. */
 .card:hover .cardBox,
 .cardBox:hover {
-  transform: translateY(-6px) scale(1.012);
-  box-shadow: 0 26px 50px -18px var(--lg-accent-glow),
-              inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  transform: translateY(-7px) scale(1.025);
+  box-shadow: 0 30px 60px -16px var(--lg-accent-glow),
+              0 0 0 1px var(--lg-accent-border),
+              inset 0 1px 0 rgba(255, 255, 255, 0.30);
 }
 /* (card glare-sweep removed — an absolutely-positioned ::after over the poster
    could clip/cover the image on WebKit/iOS. Cards keep the lift + crimson bloom.) */
