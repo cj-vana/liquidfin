@@ -664,6 +664,8 @@ progress::-webkit-progress-bar   { background-color: rgba(255, 255, 255, 0.12) !
   .mainDrawer, .touch-menu-la.drawer-open, .MuiDrawer-paper,
   .dialog, .actionSheet, .MuiMenu-paper, .MuiPopover-paper,
   .nowPlayingBar, .toast,
+  .osdControls, .upNextContainer, .skip-button, .playerStats,
+  .alphaPicker, .noItemsMessage, .btnPreviousPage, .btnNextPage,
   #loginPage .padded-left.padded-right.padded-bottom-page {
     background-color: rgba(14, 16, 22, 0.94) !important;
   }
@@ -687,6 +689,10 @@ body.layout-tv .nowPlayingBar,
 body.layout-tv .MuiMenu-paper,
 body.layout-tv .MuiPopover-paper,
 body.layout-tv .toast,
+body.layout-tv .osdControls,
+body.layout-tv .upNextContainer,
+body.layout-tv .skip-button,
+body.layout-tv .playerStats,
 body.layout-tv #loginPage .padded-left.padded-right.padded-bottom-page {
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
@@ -1094,3 +1100,293 @@ body.layout-tv .listItem:not(.actionSheetMenuItem) { transition: none !important
 @media (forced-colors: active) {
   .starIcon { background: none; color: currentColor; -webkit-text-fill-color: currentColor; }
 }
+
+/* =====================================================================
+   21. VIDEO PLAYER / OSD — frosted controls, crimson liquid-glass scrubber
+   The OSD bar hugs the screen's BOTTOM edge, so it gets a darkening gradient +
+   plain blur() only — NEVER --lg-refract (would sample off-screen black on CEF).
+   Player panels are added to the opaque-floor + layout-tv flat lists above.
+   ===================================================================== */
+
+/* OSD bottom bar: a legibility gradient (keeps subtitles/picture readable above
+   the controls) + a frosted lift on the inner control band only. */
+.videoOsdBottom.videoOsdBottom-maincontrols {
+  background: linear-gradient(to top,
+      rgba(6, 7, 10, 0.86) 0%,
+      rgba(8, 9, 13, 0.55) 42%,
+      rgba(10, 11, 16, 0.12) 78%,
+      transparent 100%) !important;
+}
+/* NO backdrop-filter here: the control band is full-width and flush to the screen's
+   BOTTOM edge — CEF/Chromium can black-sample an edge backdrop-filter even with plain
+   blur (Codex flagged this as a blocker; same class as the old black nav-drawer). A
+   solid tint + lit top edge gives the 'glass plate' read with zero black-out risk. */
+.osdControls {
+  background: rgba(10, 11, 16, 0.5) !important;
+  -webkit-backdrop-filter: none !important;
+          backdrop-filter: none !important;
+  box-shadow: inset 0 1px 0 var(--lg-rim-hi);
+}
+
+/* Scrubber: crimson liquid-glass track + glowing played fill + lit knob. Builds on
+   section 11's crimson recolor; touches background/box-shadow ONLY (fill width is
+   inline JS), and is scoped under .osdControls so the global slider stays calm. */
+.osdControls .mdl-slider-background-lower {
+  background: linear-gradient(90deg, var(--lg-accent), var(--lg-accent-bright)) !important;
+  box-shadow: 0 0 8px var(--lg-accent-glow), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+}
+.osdControls .mdl-slider-background-upper { background: rgba(255, 255, 255, 0.22) !important; }
+.osdControls .mdl-slider::-webkit-slider-thumb {
+  background: var(--lg-accent-bright) !important;
+  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.28), 0 0 12px var(--lg-accent-glow) !important;
+}
+.osdControls .mdl-slider::-moz-range-thumb {
+  background: var(--lg-accent-bright) !important;
+  box-shadow: 0 0 12px var(--lg-accent-glow) !important;
+}
+.osdControls .mdl-slider::-ms-thumb { background: var(--lg-accent-bright) !important; }
+.osdControls .sliderMarker { background-color: rgba(255, 255, 255, 0.45) !important; }
+.osdControls .sliderMarker.watched { background-color: var(--lg-accent) !important; }
+
+/* OSD transport buttons: crimson hover/focus + a lit 'engaged' (toggled) state.
+   Only colour/background/box-shadow — the bundled icon font is untouched. */
+.videoOsdBottom .paper-icon-button-light {
+  border-radius: var(--lg-radius-pill) !important;
+  transition: color var(--lg-dur) var(--lg-ease),
+              background var(--lg-dur) var(--lg-ease),
+              box-shadow var(--lg-dur) var(--lg-ease);
+}
+.videoOsdBottom .paper-icon-button-light:focus-visible {
+  outline: none;
+  background: var(--lg-accent-weak) !important;
+  box-shadow: 0 0 0 2px var(--lg-accent-border), 0 0 14px -2px var(--lg-accent-glow) !important;
+}
+.videoOsdBottom .paper-icon-button-light.buttonActive,
+.videoOsdBottom .paper-icon-button-light.show-focus:focus {
+  color: var(--lg-accent-bright) !important;
+  background: var(--lg-accent-glass) !important;
+  box-shadow: inset 0 0 0 1px var(--lg-accent-border), 0 0 14px -4px var(--lg-accent-glow) !important;
+}
+.videoOsdBottom.videoOsdBottom-maincontrols .btnPause:hover .material-icons {
+  color: var(--lg-accent-bright) !important;
+}
+
+/* Up-Next card: frosted glass panel + crimson 'Start Now' CTA + crimson countdown.
+   Corner-anchored -> plain blur() only, never --lg-refract. */
+.upNextContainer {
+  background: var(--lg-tint-strong) !important;
+  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(1.5);
+          backdrop-filter: blur(var(--lg-blur)) saturate(1.5);
+  border: 1px solid var(--lg-rim) !important;
+  border-radius: var(--lg-radius-lg) !important;
+  box-shadow: var(--lg-specular) !important;
+  color: var(--lg-text) !important;
+}
+.upNextContainer .upNextDialog-countdownText { color: var(--lg-accent-bright) !important; }
+.upNextContainer .btnStartNow {
+  background: var(--lg-accent-glass) !important;
+  color: var(--lg-text) !important;
+  border-radius: var(--lg-radius-md) !important;
+  border: 0 !important;
+  box-shadow: inset 0 1px 0 var(--lg-rim-hi),
+              inset 0 0 0 1px var(--lg-accent-border),
+              0 8px 22px -10px var(--lg-accent-glow) !important;
+  transition: background var(--lg-dur) var(--lg-ease), box-shadow var(--lg-dur) var(--lg-ease);
+}
+.upNextContainer .btnStartNow:hover {
+  background: var(--lg-accent) !important;
+  box-shadow: inset 0 1px 0 var(--lg-rim-hi),
+              inset 0 0 0 1px var(--lg-accent-border),
+              0 10px 30px -8px var(--lg-accent-glow) !important;
+}
+
+/* Skip Intro / Skip Credits: crimson liquid-glass pill (edge-adjacent -> plain blur). */
+.skip-button {
+  background: var(--lg-accent-glass) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(1.4);
+          backdrop-filter: blur(10px) saturate(1.4);
+  color: var(--lg-text) !important;
+  border-radius: var(--lg-radius-pill) !important;
+  box-shadow: inset 0 1px 0 var(--lg-rim-hi),
+              inset 0 0 0 1px var(--lg-accent-border),
+              0 8px 22px -10px var(--lg-accent-glow) !important;
+  transition: background var(--lg-dur) var(--lg-ease),
+              box-shadow var(--lg-dur) var(--lg-ease),
+              color var(--lg-dur) var(--lg-ease);
+}
+/* hover + focus-visible split into separate rules: comma-grouping :focus-visible
+   (unsupported on old TV Chromium <86 / WKWebView <15.4) would invalidate the whole
+   list and drop the hover too. */
+.skip-button:hover {
+  background: var(--lg-accent) !important;
+  color: #fff !important;
+  box-shadow: inset 0 1px 0 var(--lg-rim-hi),
+              inset 0 0 0 1px var(--lg-accent-border),
+              0 0 16px -2px var(--lg-accent-glow) !important;
+}
+.skip-button:focus-visible {
+  background: var(--lg-accent) !important;
+  color: #fff !important;
+  outline: none;
+  box-shadow: inset 0 1px 0 var(--lg-rim-hi),
+              inset 0 0 0 1px var(--lg-accent-border),
+              0 0 16px -2px var(--lg-accent-glow) !important;
+}
+.skip-button:active {
+  background: var(--lg-accent-bright) !important;
+  box-shadow: inset 0 0 0 1px var(--lg-accent-border) !important;
+}
+
+/* Player stats overlay: frosted glass info card. */
+.playerStats {
+  background: var(--lg-tint-strong) !important;
+  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(1.5);
+          backdrop-filter: blur(var(--lg-blur)) saturate(1.5);
+  border: 1px solid var(--lg-rim) !important;
+  border-radius: var(--lg-radius-md) !important;
+  box-shadow: var(--lg-specular) !important;
+  color: var(--lg-text) !important;
+}
+.playerStats .playerStats-stats { color: var(--lg-text-dim) !important; }
+
+/* =====================================================================
+   22. LIBRARY-BROWSE VIEWS — toolbar pills, alphabet rail, pagination, empties
+   Cards are already glass-skinned globally; this skins the library CHROME so a
+   library page reads as the same material. Toolbar/rail/footer sit high or inset,
+   never flush to a screen edge, and use plain blur() only (never --lg-refract).
+   ===================================================================== */
+
+/* Filter / Sort / View: crimson hover/focus + a crimson 'filters active'
+   affordance. NO resting tinted-pill/blur — these .paper-icon-button-light classes
+   also appear outside the library toolbar (search, favorites, music, Live TV), so a
+   filled glass pill would look out of place there. They stay bare icon buttons
+   (matching the page) and only light crimson on interact; .filterActive shows a
+   crimson fill so a filtered library is obvious at a glance. */
+.btnFilter, .btnSort, .btnSelectView {
+  border-radius: var(--lg-radius-pill) !important;
+  transition: background var(--lg-dur) var(--lg-ease),
+              box-shadow var(--lg-dur) var(--lg-ease),
+              color var(--lg-dur) var(--lg-ease);
+}
+.btnFilter:hover, .btnSort:hover, .btnSelectView:hover,
+.btnFilter:focus, .btnSort:focus, .btnSelectView:focus {
+  background: var(--lg-accent-weak) !important;
+  color: var(--lg-accent-bright) !important;
+  box-shadow: inset 0 0 0 1px var(--lg-accent-border);
+}
+.btnFilter.filterActive {
+  background: var(--lg-accent-glass) !important;
+  color: #fff !important;
+  box-shadow: inset 0 0 0 1px var(--lg-accent-border),
+              0 6px 18px -10px var(--lg-accent-glow) !important;
+}
+body.layout-tv .btnFilter.filterActive { background: rgba(229, 9, 20, 0.16) !important; }
+
+/* Alphabet picker -> slim frosted glass rail, crimson active letter. */
+.alphaPicker {
+  border-radius: var(--lg-radius-pill);
+  background: var(--lg-tint);
+  -webkit-backdrop-filter: blur(10px) saturate(1.4);
+          backdrop-filter: blur(10px) saturate(1.4);
+  box-shadow: inset 0 1px 0 0 var(--lg-rim-hi), inset 0 0 0 1px var(--lg-rim);
+  padding: 0.25em 0.1em;
+}
+.alphaPickerButton {
+  color: var(--lg-text-dim);
+  border-radius: var(--lg-radius-pill);
+  background: transparent;
+  transition: color var(--lg-dur) var(--lg-ease),
+              background var(--lg-dur) var(--lg-ease),
+              box-shadow var(--lg-dur) var(--lg-ease);
+}
+.alphaPickerButton:hover, .alphaPickerButton:focus {
+  color: var(--lg-accent-bright);
+  background: var(--lg-accent-weak);
+}
+.alphaPickerButton-selected {
+  color: #fff !important;
+  background: var(--lg-accent-glass);
+  box-shadow: inset 0 0 0 1px var(--lg-accent-border), 0 0 12px -2px var(--lg-accent-glow);
+}
+body.layout-tv .alphaPicker {
+  -webkit-backdrop-filter: none !important;
+          backdrop-filter: none !important;
+  background: rgba(20, 22, 28, 0.92) !important;
+}
+body.layout-tv .alphaPickerButton-selected,
+body.layout-tv .alphaPickerButton-tv:focus {
+  background: rgba(229, 9, 20, 0.16) !important;
+  box-shadow: inset 0 0 0 1px var(--lg-accent-border) !important;
+}
+
+/* Pagination -> glass prev/next pills + steady tabular count. (No display/flex
+   reset on .listPaging — Jellyfin right-aligns it natively; we only style children.) */
+.listPaging > span {
+  color: var(--lg-text-dim);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+.btnPreviousPage, .btnNextPage {
+  border-radius: var(--lg-radius-pill) !important;
+  background: var(--lg-tint) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(1.4);
+          backdrop-filter: blur(10px) saturate(1.4);
+  box-shadow: inset 0 1px 0 0 var(--lg-rim-hi), inset 0 0 0 1px var(--lg-rim);
+  transition: background var(--lg-dur) var(--lg-ease),
+              box-shadow var(--lg-dur) var(--lg-ease),
+              color var(--lg-dur) var(--lg-ease);
+}
+.btnPreviousPage:hover, .btnNextPage:hover,
+.btnPreviousPage:focus, .btnNextPage:focus {
+  background: var(--lg-accent-weak) !important;
+  color: var(--lg-accent-bright) !important;
+  box-shadow: inset 0 1px 0 0 var(--lg-rim-hi), inset 0 0 0 1px var(--lg-accent-border);
+}
+.btnPreviousPage:disabled, .btnNextPage:disabled {
+  opacity: 0.4;
+  background: rgba(255, 255, 255, 0.04) !important;
+  box-shadow: inset 0 0 0 1px var(--lg-rim) !important;
+}
+body.layout-tv .btnPreviousPage, body.layout-tv .btnNextPage {
+  -webkit-backdrop-filter: none !important;
+          backdrop-filter: none !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Empty state ('No items') -> centered glass plate. ONLY .noItemsMessage — the
+   generic .centerMessage class is reused for loading/error/select-server text app-wide,
+   so glass-plating it would box ordinary one-line messages everywhere. */
+.noItemsMessage {
+  max-width: 32em;
+  margin: 2em auto;
+  padding: 1.6em 1.8em;
+  text-align: center;
+  color: var(--lg-text-dim);
+  border-radius: var(--lg-radius-lg);
+  background: var(--lg-tint);
+  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(1.5);
+          backdrop-filter: blur(var(--lg-blur)) saturate(1.5);
+  box-shadow: var(--lg-specular);
+}
+.noItemsMessage h1 { color: var(--lg-text); }
+body.layout-tv .noItemsMessage {
+  -webkit-backdrop-filter: none !important;
+          backdrop-filter: none !important;
+  background: rgba(14, 15, 20, 0.94) !important;
+  box-shadow: inset 0 0 0 1px var(--lg-rim) !important;
+}
+
+/* List group headers (A-Z dividers) + counts -> editorial weight, steady counts. */
+.listGroupHeader {
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--lg-text);
+  border-bottom: 1px solid var(--lg-rim);
+  padding-bottom: 0.25em;
+}
+.childCount, .itemsContainerCount {
+  color: var(--lg-text-dim);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+body.layout-tv .listGroupHeader { border-bottom-color: rgba(255, 255, 255, 0.14); }
