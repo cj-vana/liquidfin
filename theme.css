@@ -363,14 +363,21 @@ body.layout-tv .MuiTab-root.Mui-selected {
   }
   .layout-tv .itemBackdrop { -webkit-mask-image: none; mask-image: none; }
 }
-/* a whisper of bottom darkening keeps title text legible over bright art */
+/* Cinematic top-to-bottom scrim (full height): dark behind the header so bright
+   artwork can't wash it gray, a clear band through the middle so the art reads, then
+   darkening down before the mask-fade melts it into the page. Keeps header icons +
+   metadata legible and makes the hero feel like a movie key-art frame, not a flat
+   gray panel. (The parent mask-image fades the very bottom; this is masked with it.) */
 .itemBackdrop::after {
   content: '';
   position: absolute;
-  top: auto; right: 0; bottom: 0; left: 0;   /* longhand: 'inset' shorthand is Chromium 87+ */
-  height: 42%;
+  top: 0; right: 0; bottom: 0; left: 0;   /* longhand: 'inset' shorthand is Chromium 87+ */
   pointer-events: none;
-  background: linear-gradient(to top, rgba(7, 7, 10, calc(var(--lg-scrim) * 0.9)), transparent);
+  background: linear-gradient(to bottom,
+    rgba(7, 7, 10, 0.82) 0%,
+    rgba(7, 7, 10, 0.46) 20%,
+    rgba(7, 7, 10, 0.30) 46%,
+    rgba(7, 7, 10, 0.62) 76%);
 }
 
 /* Detail action buttons: emphasize Play in crimson */
