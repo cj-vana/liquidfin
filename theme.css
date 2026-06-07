@@ -332,12 +332,10 @@ h1, h2, h3, h4 {
    neutral rule below can't out-order us. */
 .raised.button-submit, .button-submit,
 .MuiButton-root.MuiButton-containedPrimary {
-  background: var(--lg-accent-glass) !important;
+  background: linear-gradient(180deg, rgba(244, 30, 48, 0.95), rgba(201, 8, 20, 0.95)) !important;
   color: #fff !important;
   border-radius: var(--lg-radius-md) !important;
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
-  -webkit-backdrop-filter: blur(10px) saturate(1.4);
-  backdrop-filter: blur(10px) saturate(1.4);
   box-shadow: inset 0 1px 0 var(--lg-rim-hi),
               inset 0 0 0 1px var(--lg-accent-border),
               0 8px 22px -10px var(--lg-accent-glow);
@@ -345,7 +343,7 @@ h1, h2, h3, h4 {
 .raised.button-submit:hover, .button-submit:hover,
 .button-submit:focus,
 .MuiButton-root.MuiButton-containedPrimary:hover {
-  background: rgba(229, 9, 20, 0.46) !important;
+  background: linear-gradient(180deg, #ff3346, #e00f1f) !important;
   box-shadow: inset 0 1px 0 var(--lg-rim-hi),
               inset 0 0 0 1px var(--lg-accent-border),
               0 10px 30px -8px var(--lg-accent-glow);
@@ -368,12 +366,12 @@ h1, h2, h3, h4 {
 
 /* Cancel keeps a clear-glass crimson edge (no harsh flat red) */
 .cancel {
-  background: var(--lg-accent-glass) !important;
+  background: var(--lg-tint) !important;
+  color: var(--lg-text) !important;
   border-radius: var(--lg-radius-md) !important;
   -webkit-backdrop-filter: blur(10px) saturate(1.4);
   backdrop-filter: blur(10px) saturate(1.4);
-  box-shadow: inset 0 1px 0 var(--lg-rim-hi),
-              inset 0 0 0 1px var(--lg-accent-border);
+  box-shadow: var(--lg-specular);
 }
 
 /* Icon buttons: crimson hover wash (theme uses jellyfin-blue) */
@@ -399,8 +397,8 @@ h1, h2, h3, h4 {
 .emby-input:focus,
 .emby-textarea:focus,
 .emby-select-withcolor:focus {
-  border-color: var(--lg-accent) !important;
-  box-shadow: 0 0 0 3px var(--lg-accent-weak) !important;
+  border-color: rgba(255, 86, 100, 0.7) !important;
+  box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.14) !important;
   outline: none !important;
 }
 
@@ -530,8 +528,7 @@ progress::-webkit-progress-bar   { background-color: rgba(255, 255, 255, 0.12) !
    13. LOGIN / SELECT-USER  (glass card over the backdrop)
    ===================================================================== */
 #loginPage { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-#loginPage .padded-left.padded-right.padded-bottom-page,
-#loginPage .readOnlyContent {
+#loginPage .padded-left.padded-right.padded-bottom-page {
   background: var(--lg-tint-strong) !important;
   -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(1.5);
   backdrop-filter: blur(var(--lg-blur)) saturate(1.5);
@@ -540,6 +537,16 @@ progress::-webkit-progress-bar   { background-color: rgba(255, 255, 255, 0.12) !
   box-shadow: var(--lg-specular);
   padding: 1.6em !important;
   max-width: 30em;
+}
+/* the bottom button group lives INSIDE the card — keep it transparent so it
+   isn't a second nested glass box. */
+#loginPage .readOnlyContent {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  padding: 0.25em 0 0 !important;
 }
 #divUsers .card .cardImageContainer { box-shadow: inset 0 0 0 1px var(--lg-rim); }
 
@@ -665,7 +672,9 @@ body.layout-mobile .MuiPopover-paper {
 
 /* --- Rounded icons (Material Symbols Rounded) + title polish --- */
 .material-icons {
-  font-family: 'Material Symbols Rounded' !important;
+  /* fall back to Jellyfin's bundled Material Icons if the Google font is
+     blocked (reverse proxy / CSP / offline) — otherwise icons render as tofu. */
+  font-family: 'Material Symbols Rounded', 'Material Icons' !important;
   font-weight: normal !important;
   font-variation-settings: 'FILL' 0, 'wght' 420, 'GRAD' 0, 'opsz' 24;
 }
