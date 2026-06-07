@@ -139,15 +139,18 @@ h1, h2, h3, h4 {
    3. HEADER  (solid glass / transparent hero / OSD are different states)
    ===================================================================== */
 
-/* SOLID header on home & library pages -> frosted glass + specular rim. */
+/* SOLID header on home & library pages -> rich frosted glass with a gradient
+   fade + a crimson-tinted edge glow + bright specular (ElegantFin-style fade,
+   re-skinned). Frosted only — the header hugs the screen edge, where SVG
+   refraction would sample off-screen black, so it is intentionally NOT refracted. */
 .skinHeader-blurred:not(.osdHeader):not(.semiTransparent),
 .skinHeader-withBackground:not(.osdHeader):not(.semiTransparent) {
-  background: var(--lg-tint) !important;
-  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(1.6) brightness(1.05);
-  backdrop-filter: blur(var(--lg-blur)) saturate(1.6) brightness(1.05);
+  background: linear-gradient(180deg, rgba(26, 18, 24, 0.62), rgba(18, 16, 22, 0.36)) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(1.7) brightness(1.04);
+  backdrop-filter: blur(16px) saturate(1.7) brightness(1.04);
   box-shadow: inset 0 1px 0 var(--lg-rim-hi),
-              inset 0 -1px 0 var(--lg-rim),
-              0 8px 30px -18px rgba(0, 0, 0, 0.9);
+              inset 0 -1px 0 rgba(229, 9, 20, 0.20),
+              0 10px 34px -20px rgba(0, 0, 0, 0.9);
 }
 
 /* TRANSPARENT header floating over a detail backdrop -> keep it clear. */
@@ -240,11 +243,20 @@ h1, h2, h3, h4 {
               0 0 0 1px var(--lg-accent-border);
 }
 
-/* Hover overlay: glass scrim + crimson play affordance */
+/* Hover overlay: glass scrim + crimson play affordance. (No backdrop-filter here
+   — a blur on the hover layer over a poster can blank card images on WebKit/iOS.) */
 .cardOverlayContainer {
   background: linear-gradient(to top, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.12)) !important;
-  -webkit-backdrop-filter: blur(2px);
-  backdrop-filter: blur(2px);
+}
+/* a soft glass sheen on the hover overlay (ElegantFin-style, on the OVERLAY layer
+   ONLY — it sits over the dark scrim, never over the poster image). */
+.cardOverlayContainer::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.16), transparent 38%);
 }
 .cardOverlayButtonIcon,
 .cardOverlayFab-primary {
@@ -566,15 +578,18 @@ progress::-webkit-progress-bar   { background-color: rgba(255, 255, 255, 0.12) !
    Only a handful of small, fixed panels get the real lensing (perf).
    Non-Chromium engines ignore the url() and keep the frosted glass above.
    ===================================================================== */
-/* (background: paint(x)) is the Houdini Paint-API test = Blink/Chromium ONLY, so
-   WebKit (Safari/iOS) and Gecko (Firefox) NEVER enter this block and keep the
-   frosted glass declared above. The url() @supports alone fails OPEN on them
-   (both parse url() but can't render the SVG graph -> frosting lost). Refraction
-   is ALSO limited to CENTERED panels (dialogs + login) — edge-anchored menus /
-   action sheets / popovers would sample off-screen black at the rim. */
-@supports (background: paint(x)) and ((backdrop-filter: url('#x')) or (-webkit-backdrop-filter: url('#x'))) {
+/* Refraction is limited to CENTERED panels (dialogs + login) — edge-anchored
+   menus / action sheets / popovers would sample off-screen black at the rim.
+   Inside the rule we declare the frosted fallback FIRST, then the refraction:
+   on a non-Blink engine that drops the url() refraction, the frosted line above
+   it in the SAME rule survives, so the panel can never lose its glass. (Houdini
+   paint() detection was rejected — it returns false on headless/CEF Chromium too,
+   which would have killed refraction everywhere.) */
+@supports (backdrop-filter: url('#x')) or (-webkit-backdrop-filter: url('#x')) {
   .dialog:not(.actionSheet),
   #loginPage .padded-left.padded-right.padded-bottom-page {
+    -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(1.5);
+    backdrop-filter: blur(var(--lg-blur)) saturate(1.5);
     -webkit-backdrop-filter: var(--lg-refract) blur(2px) saturate(1.5) contrast(1.06) brightness(1.05);
     backdrop-filter: var(--lg-refract) blur(2px) saturate(1.5) contrast(1.06) brightness(1.05);
   }
