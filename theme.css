@@ -27,7 +27,10 @@
    so the rest of the backdrop-filter chain stays valid).
    ===================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+/* No web-font @import: a reverse proxy / CSP can block fonts.googleapis.com (the
+   same risk that caused the icon tofu) and it render-blocks first paint. The
+   system stack in --lg-font is premium (SF on Apple, Roboto on Android, Segoe on
+   Windows), loads instantly, and can't be blocked. */
 
 /* =====================================================================
    1. TOKENS
@@ -55,12 +58,14 @@
   /* --- text --- */
   --lg-text:            #f3f4f6;
   --lg-text-dim:        rgba(243, 244, 246, 0.62);
-  --lg-font:            'Plus Jakarta Sans', 'Noto Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --lg-font:            system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', Arial, sans-serif;
 
   /* --- page background (deep near-black + crimson ambient bloom) --- */
   --lg-bg:
-      radial-gradient(120% 120% at 0% 0%,  rgba(229, 9, 20, 0.12), transparent 42%),
-      radial-gradient(120% 120% at 100% 100%, rgba(229, 9, 20, 0.07), transparent 46%),
+      radial-gradient(60% 50% at 12% 8%,  rgba(229, 9, 20, 0.14), transparent 60%),
+      radial-gradient(50% 45% at 88% 12%, rgba(120, 20, 40, 0.10), transparent 62%),
+      radial-gradient(55% 60% at 78% 92%, rgba(229, 9, 20, 0.08), transparent 64%),
+      radial-gradient(45% 50% at 20% 88%, rgba(60, 12, 24, 0.10), transparent 60%),
       linear-gradient(160deg, #0b0c11 0%, #07070a 60%, #050507 100%);
   --lg-backdrop-dim:    0.52;             /* how much library backdrops are dimmed */
   --lg-scrim:           0.62;             /* text scrim strength (0 = beta-1 pure) */
@@ -71,7 +76,15 @@
   --lg-radius-sm:       10px;
   --lg-radius-pill:     999px;
   --lg-ease:            cubic-bezier(.2, .7, .2, 1);
+  --lg-ease-spring:     cubic-bezier(.34, 1.56, .64, 1);   /* overshoot 'settle' for hover/focus */
   --lg-dur:             .25s;
+  /* layered crimson-tinted elevation (Stripe/Linear depth). rgba (not hsl space-
+     syntax) so it resolves on old TV Chromium too. */
+  --lg-elev-3:          0 1px 2px rgba(44, 6, 14, 0.22),
+                        0 4px 8px rgba(44, 6, 14, 0.22),
+                        0 8px 16px rgba(44, 6, 14, 0.20),
+                        0 16px 32px rgba(44, 6, 14, 0.18),
+                        0 32px 48px -8px rgba(44, 6, 14, 0.16);
 
   /* --- directional specular rim, reused everywhere glass appears.
          Bright catch on the TOP edge, faint on the left, dark shade on the
@@ -234,7 +247,8 @@ h1, h2, h3, h4 {
 
 .cardBox {
   border-radius: var(--lg-radius-md);
-  transition: transform var(--lg-dur) var(--lg-ease), box-shadow var(--lg-dur) var(--lg-ease);
+  /* spring/overshoot 'settle' on the lift (transform only — keep colour smooth) */
+  transition: transform .42s var(--lg-ease-spring), box-shadow var(--lg-dur) var(--lg-ease);
 }
 .card:hover .cardBox,
 .cardBox:hover {
@@ -256,7 +270,7 @@ h1, h2, h3, h4 {
   top: 0; right: 0; bottom: 0; left: 0;
   border-radius: inherit;
   pointer-events: none;
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.16), transparent 38%);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.18), transparent 40%);
 }
 .cardOverlayButtonIcon,
 .cardOverlayFab-primary {
@@ -706,7 +720,15 @@ body.layout-mobile #loginPage .padded-left.padded-right.padded-bottom-page {
    a Google-hosted font that proxied servers block, causing tofu. We now leave
    Jellyfin's icons alone so they render wherever Jellyfin itself loads them.) */
 .sectionTitle, .sectionTitle-cards, .detailPageTitle, h1, h2, h3 {
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
+  font-weight: 700;
+}
+.detailPageTitle, .nameContainer h1 { font-weight: 800; letter-spacing: -0.02em; }
+/* tabular numbers so runtimes / counts / timestamps don't jitter (editorial feel) */
+.itemMiscInfo, .runtime, .mediaInfoItem, .sliderBubble, .nowPlayingBarText,
+.startTimeText, .endTimeText, .osdPositionText, .osdDurationText {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
 }
 
 /* --- Micro-interactions: glass surfaces rise/fade in; crimson focus glow --- */
@@ -721,9 +743,17 @@ body.layout-mobile #loginPage .padded-left.padded-right.padded-bottom-page {
 
 .emby-button:focus-visible,
 .button-submit:focus-visible,
-.paper-icon-button-light:focus-visible {
+.paper-icon-button-light:focus-visible,
+.cardBox:focus-visible,
+.navMenuOption:focus-visible,
+.listItem:focus-visible {
   outline: none !important;
   box-shadow: 0 0 0 3px var(--lg-accent-weak), 0 0 18px -2px var(--lg-accent-glow) !important;
+}
+/* TV / remote focus (old TV Chromium lacks :focus-visible; Jellyfin adds .focuszoom) */
+.layout-tv .cardBox:focus, .layout-tv .focuszoom:focus,
+.layout-tv button:focus, .layout-tv .emby-button:focus {
+  box-shadow: 0 0 0 3px var(--lg-accent-border), 0 0 22px -2px var(--lg-accent-glow) !important;
 }
 
 /* --- reduced-motion: disable every animation/transform added above --- */
@@ -735,6 +765,57 @@ body.layout-mobile #loginPage .padded-left.padded-right.padded-bottom-page {
     animation: none !important;
   }
   .card:hover .cardBox, .cardBox:hover { transform: none !important; }
+}
+
+/* =====================================================================
+   19. COOL PASS  (design-research spec — premium chrome, all motion self-guarded)
+   ===================================================================== */
+
+/* ---- My Media hero tiles (home library buttons): crimson glass + accent glow.
+   If .homeLibraryButton isn't the class on this build, these no-op and the tiles
+   still get the generic card hover — graceful either way. ---- */
+.homeLibraryButton, .raised.homeLibraryButton, .emby-button.homeLibraryButton {
+  border-radius: var(--lg-radius-md) !important;
+  box-shadow: var(--lg-specular);
+  border: 1px solid rgba(229, 9, 20, 0);     /* transparent crimson rim, blooms on hover */
+  transition: transform var(--lg-dur) var(--lg-ease-spring),
+              box-shadow var(--lg-dur) var(--lg-ease),
+              border-color var(--lg-dur) var(--lg-ease);
+}
+.homeLibraryButton:hover, .homeLibraryButton:focus-visible {
+  border-color: var(--lg-accent-border);          /* rim blooms 0 -> crimson */
+  box-shadow: var(--lg-specular),
+              0 22px 48px -16px var(--lg-accent-glow),
+              0 0 0 1px var(--lg-accent-border);
+}
+.homeLibraryButton .cardText,
+.homeLibraryButton .cardOverlayContainer { text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6); }
+
+/* (Header feather-mask intentionally NOT applied: mask-image on the header
+   element masks its CONTENT too, which would fade out the Home/Favorites tabs.
+   The header's gradient background + specular rim already give it depth.) */
+
+/* ---- Staggered 'page composes in' reveal of home rows. TRANSFORM-ONLY (no
+   opacity) so a row can NEVER be left hidden — worst case it sits 16px low. ---- */
+@keyframes lg-row-rise { from { transform: translateY(16px); } to { transform: none; } }
+.verticalSection { animation: lg-row-rise 0.5s var(--lg-ease) both; }
+.verticalSection:nth-child(2) { animation-delay: 0.05s; }
+.verticalSection:nth-child(3) { animation-delay: 0.10s; }
+.verticalSection:nth-child(4) { animation-delay: 0.15s; }
+.verticalSection:nth-child(n+5) { animation-delay: 0.18s; }
+
+/* ---- Clear-logo rises into place on the mobile detail hero ---- */
+@keyframes lg-logo-rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.layout-mobile .detailLogo:not(.hide) { animation: lg-logo-rise 0.7s var(--lg-ease) both; }
+
+/* self-guards for the new motion (TV flat + reduced-motion) */
+body.layout-tv .verticalSection,
+body.layout-tv .detailLogo,
+body.layout-tv .homeLibraryButton { animation: none !important; transition: none !important; }
+body.layout-tv .homeLibraryButton:hover { transform: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  .verticalSection, .detailLogo:not(.hide), .homeLibraryButton { animation: none !important; }
+  .homeLibraryButton:hover { transform: none !important; }
 }
 
 /* =====================================================================
