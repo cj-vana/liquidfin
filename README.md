@@ -14,14 +14,14 @@ Built and verified against **Jellyfin 10.11.x** (latest stable).
 
 ## Preview
 
-> Captured on real Jellyfin 10.11 (the public demo, Chromium — refraction active).
+> Early captures on Chromium (refraction active). The look has since been refined — crimson tab lozenge, cinematic detail hero, player + library glass — so treat these as indicative.
 
-| Home | Card hover — glare sweep + crimson bloom |
+| Home | Card hover — crimson bloom + glass sheen |
 |:---:|:---:|
 | ![Home](./preview/home.png) | ![Card hover](./preview/home-hover.png) |
 | **Nav drawer — glass + crimson pill** | **Detail / hero** |
 | ![Drawer](./preview/drawer.png) | ![Detail](./preview/detail.png) |
-| **Action sheet (glass + refraction)** | **Rounded icons** |
+| **Dialog — glass + edge refraction** | **Crimson focus & indicators** |
 | ![Action sheet](./preview/actionsheet.png) | ![Icons](./preview/icons.png) |
 
 ---
@@ -33,8 +33,12 @@ A faithful take on the original (beta-1) Liquid Glass look — the most glassy v
 - **Translucent panels** — the header, nav drawer, dialogs, menus, now-playing bar and login card become strongly see-through glass; your library art shows through.
 - **Specular rims** — every glass surface gets the bright, light-catching edge highlight that defines Liquid Glass.
 - **Real refraction** — on Chromium-engine clients the content behind the glass actually *bends and lenses at the edges*, with a faint chromatic fringe at the rim — driven by a baked edge-concentrated displacement map plus three per-channel `feDisplacementMap` passes (the same approach as the best web recreations of Liquid Glass). The center stays crystal clear; only the rim refracts. On other engines it cleanly falls back to frosted glass.
-- **Crimson, the glass way** — the accent isn't flat red. Primary buttons are crimson *liquid glass*; the active nav item is a crimson glass pill; sliders, progress, indicators, focus rings and card-hover blooms all glow crimson.
-- **Floating, rounded geometry** and smooth hover lift on cards.
+- **Crimson, the glass way** — the accent isn't flat red. Primary buttons are crimson *liquid glass*; the active section tab is a crimson glass lozenge; sliders, progress, indicators, focus rings and card-hover blooms all glow crimson.
+- **Floating, rounded geometry** and a spring hover lift on cards, with depth from layered light (not borders).
+- **Premium end-to-end** — the polish doesn't stop at the home screen:
+  - **Detail pages** get a cinematic key-art hero (dark behind the header, the artwork floating on its own ambient bloom), an outlined certification chip and a gradient rating star, and glass metadata panels.
+  - **The video player** gets a frosted OSD bar, a crimson liquid-glass scrubber with a lit knob, and glass Up-Next / Skip-Intro / stats overlays.
+  - **Library views** get glass alphabet-rail + pagination, a crimson "filters active" affordance, and a glass empty-state.
 
 ---
 
@@ -52,11 +56,17 @@ Paste this **one line** into Dashboard → Branding → Custom CSS — it's alre
 
 Pushing to [the repo](https://github.com/cj-vana/liquidfin) updates the theme everywhere (jsDelivr caches `@main` — purge it or pin a tag, see below).
 
-> **Caching:** jsDelivr caches aggressively. For production, pin a tag instead of `@main` (e.g. `@v1.0.0`) and bump it when you publish, or [purge the jsDelivr cache](https://www.jsdelivr.com/tools/purge) after a push. Behind some reverse proxies (strict CSP) you may need to allow `cdn.jsdelivr.net` and `fonts.googleapis.com`/`fonts.gstatic.com`.
+> **Caching:** jsDelivr caches `@main` aggressively (and a `?v=N` query only busts the *browser* cache, not jsDelivr's). For a deterministic, instantly-cached load, **pin a specific commit** instead of `@main`:
+>
+> ```css
+> @import url('https://cdn.jsdelivr.net/gh/cj-vana/liquidfin@d253065/theme.css');
+> ```
+>
+> …and bump the hash when you want updates, or [purge the jsDelivr cache](https://www.jsdelivr.com/tools/purge) after a push to `@main`. Behind a reverse proxy with strict CSP you only need to allow `cdn.jsdelivr.net` — the theme uses **no web fonts and no external assets** (it renders in your system font), so nothing else needs allow-listing.
 
 ### Option B — paste the whole file (no hosting)
 
-Open [`theme.css`](./theme.css), copy the entire contents, and paste it into Dashboard → Branding → Custom CSS. Fully offline; nothing external except the optional Google Font.
+Open [`theme.css`](./theme.css), copy the entire contents, and paste it into Dashboard → Branding → Custom CSS. Fully offline — **no external fonts or assets** of any kind.
 
 ---
 
@@ -85,7 +95,7 @@ Everything is driven by CSS variables in the `:root` block at the top of `theme.
 | `--lg-bg` / `--lg-backdrop-dim` | Page background gradient + how much library backdrops are dimmed |
 | `--lg-scrim` | Text legibility scrims behind hero text. `0` = full beta-1 purity |
 | `--lg-radius-*` | Corner roundness |
-| `--lg-font` | UI font (defaults to Plus Jakarta Sans) |
+| `--lg-font` | UI font (defaults to the native system stack — SF / Segoe / Roboto; no web fonts) |
 
 ---
 
