@@ -161,9 +161,12 @@ h1, h2, h3, h4 {
   background: linear-gradient(180deg, rgba(26, 18, 24, 0.62), rgba(18, 16, 22, 0.36)) !important;
   -webkit-backdrop-filter: blur(16px) saturate(1.7) brightness(1.04);
   backdrop-filter: blur(16px) saturate(1.7) brightness(1.04);
+  /* a confident lit underside: bright top catch, a glowing crimson glass seam where
+     it meets the page (the lit bottom rim of a thick glass slab), deeper soft drop. */
   box-shadow: inset 0 1px 0 var(--lg-rim-hi),
-              inset 0 -1px 0 rgba(229, 9, 20, 0.20),
-              0 10px 34px -20px rgba(0, 0, 0, 0.9);
+              inset 0 -1px 0 rgba(229, 9, 20, 0.32),
+              0 1px 0 0 rgba(229, 9, 20, 0.16),
+              0 14px 40px -22px rgba(0, 0, 0, 0.92);
 }
 
 /* TRANSPARENT header floating over a detail backdrop -> keep it clear. */
@@ -187,9 +190,32 @@ h1, h2, h3, h4 {
 .emby-tab-button { transition: color var(--lg-dur) var(--lg-ease); }
 /* Active legacy tab gets a crimson underline (the "slider" is the row container,
    NOT an indicator — never paint it). Keep the real MUI indicator crimson. */
-.emby-tab-button-active {
+/* The active section tab becomes a floating crimson Liquid-Glass lozenge (iOS-26
+   beta-1 'selected segment' language) — real glass in the always-visible chrome.
+   It's INSET inside the header bar, never flush to the screen edge, and uses a
+   plain blur() (not the SVG refract), so no off-screen-black risk. Tinted crimson
+   fallback shows even where backdrop-filter is unsupported. Covers legacy + MUI. */
+.emby-tab-button-active,
+.MuiTab-root.Mui-selected {
   color: #fff !important;
-  box-shadow: inset 0 -2px 0 var(--lg-accent);
+  border-radius: var(--lg-radius-pill);
+  background: linear-gradient(180deg, rgba(229, 9, 20, 0.24), rgba(229, 9, 20, 0.10)) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(1.6);
+          backdrop-filter: blur(10px) saturate(1.6);
+  box-shadow: inset 0 1px 0 0 var(--lg-rim-hi),
+              inset 0 0 0 1px var(--lg-accent-border),
+              0 6px 18px -10px var(--lg-accent-glow);
+  transition: color var(--lg-dur) var(--lg-ease),
+              background var(--lg-dur) var(--lg-ease),
+              box-shadow var(--lg-dur) var(--lg-ease);
+}
+/* TV: flatten to a tinted crimson chip (no blur, framerate-safe). */
+body.layout-tv .emby-tab-button-active,
+body.layout-tv .MuiTab-root.Mui-selected {
+  -webkit-backdrop-filter: none !important;
+          backdrop-filter: none !important;
+  background: rgba(229, 9, 20, 0.16) !important;
+  box-shadow: inset 0 0 0 1px var(--lg-accent-border) !important;
 }
 .emby-tab-button:hover,
 .emby-tab-button:focus,
@@ -292,12 +318,21 @@ h1, h2, h3, h4 {
   box-shadow: 0 0 10px var(--lg-accent-glow);
 }
 
-/* Resume bar on cards */
+/* Resume bar on cards -> crimson liquid-glass: a lit track + a glowing gradient
+   fill. NO backdrop-filter on the bar (a blur over the poster strip can blank
+   cards on WebKit/iOS); the glass read comes from box-shadow + gradient only. */
 .itemProgressBarForeground { background: var(--lg-accent) !important; }
 .itemProgressBar:not(.transcodingProgress) {
-  background: rgba(255, 255, 255, 0.18) !important;
+  background: rgba(255, 255, 255, 0.16) !important;
   border-radius: var(--lg-radius-pill);
   overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22),
+              inset 0 -1px 0 rgba(0, 0, 0, 0.35);
+}
+.itemProgressBar:not(.transcodingProgress) .itemProgressBarForeground {
+  background: linear-gradient(90deg, rgba(229, 9, 20, 0.9), var(--lg-accent-bright)) !important;
+  box-shadow: 0 0 10px var(--lg-accent-glow), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  border-radius: var(--lg-radius-pill);
 }
 
 /* =====================================================================
@@ -480,9 +515,14 @@ h1, h2, h3, h4 {
 }
 .listItem:hover { background: var(--lg-film) !important; }
 .listItem:focus { background: var(--lg-accent-weak) !important; }
-/* selected option in a menu (the one with a check) -> crimson wash */
-.actionSheetMenuItem:has(.listItemIcon.check) { background: var(--lg-accent-weak) !important; }
-.actionSheetMenuItem:has(.listItemIcon.check) .listItemIcon.check { color: var(--lg-accent-bright) !important; }
+/* selected option in a menu (the one with a check) -> crimson wash.
+   Guarded: an unsupported :has() in a non-forgiving selector invalidates the whole
+   rule on old TV Chromium / Safari<15.4 / FF<121 — wrap it so it's parsed only where
+   :has() works (the checked item just won't highlight elsewhere; never broken). */
+@supports selector(:has(*)) {
+  .actionSheetMenuItem:has(.listItemIcon.check) { background: var(--lg-accent-weak) !important; }
+  .actionSheetMenuItem:has(.listItemIcon.check) .listItemIcon.check { color: var(--lg-accent-bright) !important; }
+}
 
 /* MUI surfaces (dashboard / newer pages) */
 .MuiPaper-elevation,
@@ -687,7 +727,12 @@ body.layout-mobile #loginPage .padded-left.padded-right.padded-bottom-page {
   background: rgba(255, 255, 255, 0.03) !important;
   box-shadow: none !important;
 }
-.cardBox { box-shadow: 0 6px 16px -10px rgba(0, 0, 0, 0.55); }
+/* resting depth from LAYERED LIGHT (not borders): a tight contact shadow + a soft
+   crimson-tinted ambient drop, so the grid reads as lit glass panes before hover. */
+.cardBox {
+  box-shadow: 0 2px 6px -2px rgba(44, 6, 14, 0.45),
+              0 12px 28px -16px rgba(44, 6, 14, 0.5);
+}
 .cardImageContainer,
 .cardImage { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16); }
 
@@ -858,7 +903,12 @@ body.layout-tv .homeLibraryButton { transition: none !important; }
     var(--lg-bg);
 }
 #loginPage .padded-left.padded-right.padded-bottom-page { width: 28em; max-width: 100%; }
-#loginPage .padded-left.padded-right.padded-bottom-page:has(.visualLoginForm:not(.hide)) { width: 40em; }
+/* Guarded: the avatar/visual-login widen is the one place :has() drives SIZING.
+   Wrap it so a no-:has() engine keeps the comfortable 28em base instead of dropping
+   the rule mid-parse (old TV Chromium hits the user-select screen first). */
+@supports selector(:has(*)) {
+  #loginPage .padded-left.padded-right.padded-bottom-page:has(.visualLoginForm:not(.hide)) { width: 40em; }
+}
 .manualLoginForm, .visualLoginForm { position: relative; }
 .manualLoginForm::before, .visualLoginForm::before {
   content: var(--lg-login-text);
@@ -876,6 +926,10 @@ body.layout-tv .homeLibraryButton { transition: none !important; }
   column-gap: 3em; row-gap: 1.25em;
   max-width: unset !important; margin-bottom: 1.5em;
 }
+/* resilience: any child we don't explicitly place spans full width instead of
+   overlapping — guards against a future jellyfin-web adding a new .detailSection
+   child (the specific grid-column rules below still win for known children). */
+.layout-desktop #itemDetailPage .detailSection > * { order: 99; grid-column: 1 / -1; }
 .layout-desktop #itemDetailPage .detailSectionContent,
 .layout-tv #itemDetailPage .detailSectionContent { order: 1; grid-column: 1 / -1; }
 .layout-desktop #itemDetailPage .itemDetailsGroup,
@@ -919,3 +973,117 @@ body.layout-tv .homeLibraryButton { transition: none !important; }
    with calc() risked breaking poster/image layout on WebKit/iOS and fighting the
    home-row scrollers. Jellyfin's native card sizing is used. To be re-done the
    ElegantFin way in the refinement.) */
+
+/* =====================================================================
+   20. ELEGANTFIN POLISH — hero bloom, list plates, search, badges, metadata
+   Proven ElegantFin patterns, re-skinned as crimson Liquid Glass. All vetted
+   against the bug classes: no transform on scroll/row ancestors, no effect over
+   the poster image layer, no edge-flush refraction, -webkit- prefixes + fallbacks,
+   flat on TV.
+   ===================================================================== */
+
+/* ---- Ambient backdrop bloom on the detail hero: an oversized, color-bled copy of
+   the artwork BEHIND the sharp backdrop, so the hero floats on its own light. Lives
+   on the hero's OWN ::before (z-index:-1) — never a card/poster/scroll ancestor, so
+   it cannot touch the lazy-image loader. Hidden on TV. ---- */
+.layout-desktop .itemBackdrop::before,
+.layout-mobile .itemBackdrop::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;     /* longhand, not inset shorthand */
+  z-index: -1;
+  background: inherit;                       /* re-use the hero artwork */
+  background-size: cover;
+  background-position: inherit;
+  -webkit-transform: scale(1.12);
+          transform: scale(1.12);
+  -webkit-filter: blur(34px) saturate(1.35) brightness(0.72);
+          filter: blur(34px) saturate(1.35) brightness(0.72);
+  opacity: 0.55;
+  pointer-events: none;
+}
+body.layout-tv .itemBackdrop::before { display: none !important; }
+
+/* ---- List rows (episodes, tracks, activity, search results) as floating glass
+   plates. No transform (lazy-load safe); the thumbnail gets an inset rim only, never
+   a filter/scrim over the image. Action-sheet menu items are excluded (simple :not
+   so old TV Chromium parses it). ---- */
+/* Rounding + hover-glass ONLY — no padding/margin change. .listItem is one of
+   Jellyfin's broadest classes (now-playing queue, subtitle/track pickers, activity
+   log); changing row height there de-densifies dense lists. Both the gate and Codex
+   flagged it, so we keep native density and only round + light the row on hover. */
+.listItem:not(.actionSheetMenuItem) {
+  border-radius: var(--lg-radius-md);
+  transition: background var(--lg-dur) var(--lg-ease), box-shadow var(--lg-dur) var(--lg-ease);
+}
+.listItem:not(.actionSheetMenuItem):hover {
+  background: var(--lg-film) !important;
+  box-shadow: inset 0 0 0 1px var(--lg-rim), 0 8px 22px -16px rgba(0, 0, 0, 0.7);
+}
+.listItemImage {
+  border-radius: var(--lg-radius-sm);
+  box-shadow: inset 0 0 0 1px var(--lg-rim);
+}
+.listItemBodyText.secondary { color: var(--lg-text-dim); }
+body.layout-tv .listItem:not(.actionSheetMenuItem) { transition: none !important; }
+
+/* ---- Search field -> crimson-focus glass pill (same focus language as inputs) ---- */
+.searchfields-txtSearch {
+  padding: 0.75em 1.5em !important;
+  border-radius: var(--lg-radius-pill) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid var(--lg-rim) !important;
+  color: var(--lg-text) !important;
+  transition: border-color var(--lg-dur) var(--lg-ease), box-shadow var(--lg-dur) var(--lg-ease);
+}
+.searchfields-txtSearch:focus {
+  border-color: var(--lg-accent-border) !important;
+  box-shadow: 0 0 0 2px var(--lg-accent-weak) !important;
+  outline: none !important;
+}
+.searchfields-icon { color: var(--lg-text-dim); }
+.searchfields-icon:hover { color: var(--lg-accent-bright); }
+
+/* ---- Card indicator badges: pill shape + lit rim, tucked into the corner. Sits in
+   .cardIndicators (an overlay sibling), never over the poster pixels. The crimson
+   played/count fills already set in section 5 stay; this only adds the rim + shape. ---- */
+.cardIndicators { top: 0.5em; }
+[dir="ltr"] .cardIndicators { right: 0.5em; }
+[dir="rtl"] .cardIndicators { left: 0.5em; }
+.indicator { border: 1px solid var(--lg-rim); border-radius: var(--lg-radius-pill); }
+.playedIndicator, .countIndicator { border: 1px solid var(--lg-accent-border); }
+.videoIndicator {
+  background: rgba(20, 22, 28, 0.72);
+  border: 1px solid var(--lg-rim);
+  border-radius: var(--lg-radius-pill);
+}
+
+/* ---- Detail metadata polish: certification rating as an outlined glass chip; the
+   IMDb star gets a warm->crimson gradient fill. Degrades to a normal star if the
+   element isn't text / background-clip:text is unsupported (no-op, never invisible
+   on the target webkit/blink/gecko engines, which all support the -webkit- pair). ---- */
+.mediaInfoOfficialRating {
+  background: transparent !important;
+  border: 1px solid var(--lg-rim);
+  border-radius: var(--lg-radius-sm);
+  color: var(--lg-text);
+  font-size: 0.78em; font-weight: 600; line-height: 1.5em;
+  padding: 0 0.5em;
+}
+.mediaInfoItem { border-radius: var(--lg-radius-sm); font-weight: 500; }
+/* Solid gold base; gradient-fill only where background-clip:text is supported, so an
+   engine without it shows a normal gold star (never an invisible glyph). Plus a
+   forced-colors backstop. Both reviewers endorsed this guard. */
+.starIcon { color: #ffd166; }
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .starIcon {
+    background: linear-gradient(to right, #ffd166, var(--lg-accent-bright));
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+}
+@media (forced-colors: active) {
+  .starIcon { background: none; color: currentColor; -webkit-text-fill-color: currentColor; }
+}
